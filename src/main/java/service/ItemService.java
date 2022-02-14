@@ -1,7 +1,8 @@
 package service;
 
-import main.dao.itemMapper;
-import main.entity.item;
+import dao.itemMapper;
+import entity.item;
+
 
 /**
  * @author Ryan

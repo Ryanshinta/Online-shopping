@@ -1,6 +1,6 @@
 package dao;
 
-import main.entity.item;
+import entity.item;
 
 /**
  * @author Ryan Ouyang
