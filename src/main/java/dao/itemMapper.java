@@ -1,4 +1,4 @@
-package main.dao;
+package dao;
 
 import main.entity.item;
 
