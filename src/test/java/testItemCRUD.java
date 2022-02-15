@@ -4,6 +4,9 @@ import service.ItemService;
 
 import java.math.BigDecimal;
 
+import static util.textColor.TEXT_RED;
+import static util.textColor.TEXT_RESET;
+
 public class testItemCRUD {
     public static void main(String[] args){
         ItemService itemService = new ItemService();
@@ -25,7 +28,7 @@ public class testItemCRUD {
         itemService.deleteById(0002L);
         item deleteItem = itemService.searchById(0002);
         if (deleteItem == null){
-            System.out.println("ID 0002 already deleted");
+            System.out.println(TEXT_RED+"ID 0002 already deleted"+TEXT_RESET);
         }else {
             System.out.println(deleteItem.toString());
         }
