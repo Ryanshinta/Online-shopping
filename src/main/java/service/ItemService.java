@@ -35,8 +35,8 @@ public class ItemService implements itemMapper {
     @Override
     public boolean updateItemById(Long Id, item newItem) {
         if (!itemMap.isEmpty() && itemMap.containsKey(Id)){
-            itemMap.put(Id, newItem);
-            return true;
+            item oldItem = itemMap.get(Id);
+            return itemMap.replace(Id,oldItem,newItem);
         }
         return false;
     }

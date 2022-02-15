@@ -1,5 +1,8 @@
 package util;
 
+/**
+ * @author Ryan
+ */
 public class textColor {
     public static final String TEXT_RESET = "\u001B[0m";
     public static final String TEXT_BLACK = "\u001B[30m";
