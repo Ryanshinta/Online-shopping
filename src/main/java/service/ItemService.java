@@ -25,6 +25,10 @@ public class ItemService implements itemMapper {
 
     @Override
     public boolean deleteById(Long Id) {
+        if (!itemMap.isEmpty() && itemMap.get(Id) != null) {
+            itemMap.remove(Id);
+            return true;
+        }
         return false;
     }
 
@@ -35,11 +39,8 @@ public class ItemService implements itemMapper {
 
     @Override
     public item searchById(long Id) {
-        if (itemMap.isEmpty()){
-            return null;
-        }
-        if (itemMap.get(Id) != null){
-
+        if (!itemMap.isEmpty() && itemMap.get(Id) != null) {
+            return itemMap.get(Id);
         }
         return null;
     }
