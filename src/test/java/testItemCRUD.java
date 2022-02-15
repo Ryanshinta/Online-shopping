@@ -30,7 +30,7 @@ public class testItemCRUD {
         if (deleteItem == null){
             System.out.println(TEXT_RED+"ID 0002 already deleted"+TEXT_RESET);
         }else {
-            System.out.println(deleteItem.toString());
+            System.out.println(deleteItem);
         }
 
     }
