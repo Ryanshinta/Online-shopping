@@ -31,3 +31,4 @@
 #VS code
 .vscode/
 /.vscode/
+/target/
