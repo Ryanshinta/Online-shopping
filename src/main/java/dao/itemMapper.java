@@ -18,7 +18,5 @@ public interface itemMapper {
     item searchById(long Id);
 
     List displayAllItem();
-    
-    //dsgsd
 
 }
