@@ -3,7 +3,9 @@ package service;
 import dao.itemMapper;
 import entity.item;
 
+import java.util.Collections;
 import java.util.HashMap;
+import java.util.List;
 
 
 /**
@@ -11,7 +13,7 @@ import java.util.HashMap;
  */
 public class ItemService implements itemMapper {
 
-    static public HashMap<Long, item> itemMap = new HashMap();
+    static private HashMap<Long, item> itemMap = new HashMap();
 
 
     @Override
@@ -45,6 +47,14 @@ public class ItemService implements itemMapper {
     public item searchById(long Id) {
         if (!itemMap.isEmpty() && itemMap.get(Id) != null) {
             return itemMap.get(Id);
+        }
+        return null;
+    }
+
+    @Override
+    public List displayAllItem() {
+        if (!itemMap.isEmpty()){
+            return Collections.singletonList(itemMap);
         }
         return null;
     }

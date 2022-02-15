@@ -2,6 +2,8 @@ package dao;
 
 import entity.item;
 
+import java.util.List;
+
 /**
  * @author Ryan Ouyang
  */
@@ -14,6 +16,8 @@ public interface itemMapper {
     boolean updateItemById(Long Id, item newItem);
 
     item searchById(long Id);
+
+    List displayAllItem();
     
     //dsgsd
 
