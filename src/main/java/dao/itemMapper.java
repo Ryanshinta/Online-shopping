@@ -11,7 +11,7 @@ public interface itemMapper {
 
     boolean deleteById(Long Id);
 
-    boolean updateItemById(Long Id);
+    boolean updateItemById(Long Id, item newItem);
 
     item searchById(long Id);
     
