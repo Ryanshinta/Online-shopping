@@ -21,8 +21,6 @@ public class UserController {
             String password = sc.nextLine();
             passwords.add(password);
         }
-        // System.out.println(usernames);
-        // System.out.println(passwords);
 
     }
 }
