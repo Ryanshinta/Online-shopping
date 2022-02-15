@@ -5,19 +5,24 @@ import entity.User;
 import java.util.ArrayList;
 
 public class UserController {
-    public void resetPassword() {
 
-        String password;
+    public static ArrayList<String> usernames = new ArrayList<String>();
+    public static ArrayList<String> passwords = new ArrayList<String>();
+
+    public void resetPassword() {
 
         System.out.print("Enter your username: ");
         Scanner sc = new Scanner(System.in);
         String username = sc.nextLine();
+        usernames.add(username);
 
         if (true) {
             System.out.print("Enter your new password: ");
-            String temp = sc.nextLine();
-            password = temp;
+            String password = sc.nextLine();
+            passwords.add(password);
         }
+        // System.out.println(usernames);
+        // System.out.println(passwords);
 
     }
 }
