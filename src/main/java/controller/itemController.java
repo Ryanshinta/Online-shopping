@@ -1,9 +1,11 @@
 package controller;
 
+import service.ItemService;
+
 /**
  * @author Ryan
  */
 public class itemController {
-    //todo
-    // to doing
+    ItemService itemService;
+
 }
