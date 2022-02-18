@@ -10,19 +10,21 @@ package dao;
  * @author YoonEn
  */
 public interface userMapper<T> {
-    
+
     public boolean add(T newEntry);
-    
+
     public void clear();
-    
+
+    public boolean remove(T anEntry);
+
     public int getNumberOfEntries();
-    
+
     public T getEntry(int givenPosition);
-    
+
     public boolean contains(T anEntry);
-    
+
     public boolean isEmpty();
 
     public boolean isFull();
-    
+
 }

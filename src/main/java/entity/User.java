@@ -26,7 +26,7 @@ public class User {
     public void setPassword(String password) {
         this.password = password;
     }
-    
+
     @Override
     public int hashCode() {
         int hash = 3;
@@ -59,8 +59,9 @@ public class User {
         return "username : " + username + ", password : " + password;
 
     }
-    
+
     public String toString2() {
         return String.format("%-20s %-20s", username, password);
     }
+
 }

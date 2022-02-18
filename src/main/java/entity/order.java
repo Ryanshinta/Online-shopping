@@ -4,8 +4,10 @@
  * and open the template in the editor.
  */
 package entity;
+
 import java.math.BigDecimal;
 import java.util.ArrayList;
+
 /**
  *
  * @author Gan
@@ -17,17 +19,16 @@ public class Order {
     private BigDecimal paymentTotal;
     private static int increment;
 
-    
-     public Order() {
+    public Order() {
     }
-     
+
     public Order(User user, ArrayList<OrderDetail> orderDetail) {
         this.user = user;
         this.orderDetail = orderDetail;
         generateOrderID();
         this.paymentTotal = calculateTotal();
     }
-    
+
     public void generateOrderID() {
         ++increment;
         this.orderID = "ORD" + String.format("%04d", increment);
@@ -80,7 +81,5 @@ public class Order {
     public static void setIncrement(int increment) {
         Order.increment = increment;
     }
-    
-    
-    
+
 }

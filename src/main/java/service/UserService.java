@@ -12,7 +12,7 @@ import dao.userMapper;
  * @author YoonEn
  */
 public class UserService<T> implements userMapper<T> {
-    
+
     private T[] array;
     private int numberOfEntries;
     private static final int DEFAULT_CAPACITY = 100;
@@ -20,12 +20,12 @@ public class UserService<T> implements userMapper<T> {
     public UserService() {
         this(DEFAULT_CAPACITY);
     }
-    
+
     public UserService(int initialCapacity) {
         numberOfEntries = 0;
         array = (T[]) new Object[initialCapacity];
     }
-  
+
     @Override
     public boolean add(T newEntry) {
         array[numberOfEntries] = newEntry;
@@ -42,7 +42,7 @@ public class UserService<T> implements userMapper<T> {
     public int getNumberOfEntries() {
         return numberOfEntries;
     }
-    
+
     @Override
     public T getEntry(int givenPosition) {
         T result = null;
@@ -57,11 +57,32 @@ public class UserService<T> implements userMapper<T> {
     public boolean contains(T anEntry) {
         boolean found = false;
         for (int index = 0; !found && (index < numberOfEntries); index++) {
-          if (anEntry.equals(array[index])) {
-            found = true;
-          }
+            if (anEntry.equals(array[index])) {
+                found = true;
+            }
         }
         return found;
+    }
+
+    @Override
+    public boolean remove(T anEntry) {
+        for (int i = 0; i < numberOfEntries; i++) {
+            if (array[i].equals(anEntry)) {
+                removeGap(i);
+                numberOfEntries--;
+                return true;
+            }
+        }
+        return false;
+    }
+
+    private void removeGap(int givenPosition) {
+        int removeIndex = givenPosition;
+        int lastIndex = numberOfEntries - 1;
+
+        for (int index = removeIndex; index < lastIndex; index++) {
+            array[index] = array[index + 1];
+        }
     }
 
     @Override
@@ -73,5 +94,5 @@ public class UserService<T> implements userMapper<T> {
     public boolean isFull() {
         return numberOfEntries == array.length;
     }
-    
+
 }
