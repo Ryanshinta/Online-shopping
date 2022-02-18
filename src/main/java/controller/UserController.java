@@ -35,7 +35,7 @@ public class UserController {
                 System.out.print("Enter new password: ");
                 password = sc.nextLine();
                 while ("".equals(password)) {
-                    System.out.println("Error: Password cannot be empty.\n");
+                    System.out.println(TEXT_RED + "Error: Password cannot be empty.\n" + TEXT_RESET);
                     System.out.print("Password         : ");
                     password = sc.nextLine();
                 }
@@ -43,16 +43,17 @@ public class UserController {
                 confirmpassword = sc.nextLine();
                 if (!(password).equals(confirmpassword)) {
                     System.out.println(
-                            "Error: password is different, pls reenter password again.\n");
+                            TEXT_RED + "Error: password is different, pls reenter password again.\n"
+                                    + TEXT_RESET);
                 }
             } while (!(password).equals(confirmpassword));
             User s = new User(username, password);
             if (userList.add(s)) {
                 System.out.println(
-                        "\nPassword for [" + username + "] has been reset successfully.");
+                        TEXT_GREEN + "\nPassword for [" + username + "] has been reset successfully." + TEXT_RESET);
             }
         } else {
-            System.out.println("\nError: [" + username + "] cant find.");
+            System.out.println(TEXT_RED + "\nError: [" + username + "] cant find." + TEXT_RESET);
 
         }
 
