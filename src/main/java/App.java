@@ -19,6 +19,6 @@ public class App {
             // System.out.println(test);
 
         }
-        System.out.println(TEXT_RED + "This test is red!" + TEXT_RESET);
+        // System.out.println(TEXT_RED + "This test is red!" + TEXT_RESET);
     }
 }

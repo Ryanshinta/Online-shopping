@@ -11,9 +11,14 @@ import static util.textColor.*;
 
 public class UserController {
 
-    public static ArrayList<String> usernames = new ArrayList<String>();
-    public static ArrayList<String> passwords = new ArrayList<String>();
     private userMapper<User> userList = new UserService<>();
+
+    public void hardCodeUser() {
+        userList.add(new User("abc", "123"));
+        userList.add(new User("def", "456"));
+        userList.add(new User("ghi", "789"));
+        userList.add(new User("jkl", "012"));
+    }
 
     public void resetPassword() {
         int n = 0;
