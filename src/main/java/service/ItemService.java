@@ -6,6 +6,7 @@ import entity.item;
 import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
+import java.util.Set;
 
 
 /**
@@ -13,7 +14,7 @@ import java.util.List;
  */
 public class ItemService implements itemMapper {
 
-    static private HashMap<Long, item> itemMap = new HashMap();
+    static private HashMap<Integer, item> itemMap = new HashMap();
 
 
     @Override
@@ -26,7 +27,7 @@ public class ItemService implements itemMapper {
     }
 
     @Override
-    public boolean deleteById(Long Id) {
+    public boolean deleteById(Integer Id) {
         if (!itemMap.isEmpty() && itemMap.get(Id) != null) {
             itemMap.remove(Id);
             return true;
@@ -35,7 +36,7 @@ public class ItemService implements itemMapper {
     }
 
     @Override
-    public boolean updateItemById(Long Id, item newItem) {
+    public boolean updateItemById(Integer Id, item newItem) {
         if (!itemMap.isEmpty() && itemMap.containsKey(Id)){
             item oldItem = itemMap.get(Id);
             return itemMap.replace(Id,oldItem,newItem);
@@ -44,7 +45,7 @@ public class ItemService implements itemMapper {
     }
 
     @Override
-    public item searchById(long Id) {
+    public item searchById(Integer Id) {
         if (!itemMap.isEmpty() && itemMap.get(Id) != null) {
             return itemMap.get(Id);
         }
@@ -52,9 +53,9 @@ public class ItemService implements itemMapper {
     }
 
     @Override
-    public List displayAllItem() {
+    public HashMap<Integer,item> displayAllItem() {
         if (!itemMap.isEmpty()){
-            return Collections.singletonList(itemMap);
+            return itemMap;
         }
         return null;
     }

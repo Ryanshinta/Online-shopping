@@ -7,25 +7,24 @@ import java.math.BigDecimal;
  * Basic entity for item
  */
 public class item {
-    private long itemID;
+    private static Integer AutoIncrease = 0;
+    private Integer itemID = 0;
     private String itemName;
     private String itemDesc;
     private BigDecimal itemPrice;
 
-    public item(long itemID, String itemName, String itemDesc, BigDecimal itemPrice) {
-        this.itemID = itemID;
+    public item(String itemName, String itemDesc, BigDecimal itemPrice) {
+        AutoIncrease++;
+        itemID = AutoIncrease;
         this.itemName = itemName;
         this.itemDesc = itemDesc;
         this.itemPrice = itemPrice;
     }
 
-    public long getItemID() {
+    public Integer getItemID() {
         return itemID;
     }
 
-    public void setItemID(long itemID) {
-        this.itemID = itemID;
-    }
 
     public String getItemName() {
         return itemName;

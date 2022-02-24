@@ -2,6 +2,7 @@ package dao;
 
 import entity.item;
 
+import java.util.HashMap;
 import java.util.List;
 
 /**
@@ -11,12 +12,12 @@ public interface itemMapper {
 
     boolean newItem(item i);
 
-    boolean deleteById(Long Id);
+    boolean deleteById(Integer Id);
 
-    boolean updateItemById(Long Id, item newItem);
+    boolean updateItemById(Integer Id, item newItem);
 
-    item searchById(long Id);
+    item searchById(Integer Id);
 
-    List displayAllItem();
+    HashMap<Integer,item> displayAllItem();
 
 }
