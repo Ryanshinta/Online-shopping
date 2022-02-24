@@ -12,7 +12,6 @@ import dao.userMapper;
  * @author YoonEn
  */
 public class UserService<T> implements userMapper<T> {
-
     private T[] array;
     private int numberOfEntries;
     private static final int DEFAULT_CAPACITY = 100;

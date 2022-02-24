@@ -13,4 +13,5 @@ public class textColor {
     public static final String TEXT_PURPLE = "\u001B[35m";
     public static final String TEXT_CYAN = "\u001B[36m";
     public static final String TEXT_WHITE = "\u001B[37m";
+    // System.out.println(TEXT_RED + "This test is red!" + TEXT_RESET);
 }

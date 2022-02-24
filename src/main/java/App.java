@@ -10,6 +10,6 @@ public class App {
         Scanner sc = new Scanner(System.in);
         user2Controller user = new user2Controller();
         user.reset();
-        // System.out.println(TEXT_RED + "This test is red!" + TEXT_RESET);
+
     }
 }
