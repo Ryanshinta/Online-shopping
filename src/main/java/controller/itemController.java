@@ -107,6 +107,34 @@ public class itemController {
 
 
     public void DeleteItem() {
+        Scanner scanner = new Scanner(System.in);
+
+        try {
+            System.out.println("Enter your ID that you want to delete");
+            String target = scanner.nextLine();
+            item i = itemService.searchById(Integer.valueOf(target));
+            if (i == null){
+                System.out.println("No item found");
+            }else {
+                System.out.println(
+                        "Item ID :"+i.getItemID()+ "\n" +
+                                "Item Name: "+i.getItemName()+"\n"+
+                                "Item Desc: "+i.getItemDesc()+"\n"+
+                                "Item Price: RM"+i.getItemPrice()+"\n");
+                System.out.println("conform delete? (Yea = y, No = n)");
+                String n = scanner.nextLine();
+                if (n.equals("y") || n.equals("Y")) {
+                    itemService.deleteById(Integer.valueOf(target));
+                    System.out.println(TEXT_GREEN + "Item delete success" + TEXT_RESET);
+                } else if (n.equals('n')|| n.equals("N")) {
+                    System.out.println("discard.");
+                }
+            }
+
+        }catch (Exception e){
+            System.out.println(TEXT_RED + e + TEXT_RESET);
+            System.out.println(TEXT_RED + "invalid input Please enter again." + TEXT_RESET);
+        }
 
     }
 
@@ -116,6 +144,16 @@ public class itemController {
         try {
             System.out.println("Enter your ID that you want to search");
             String target = scanner.nextLine();
+            item i = itemService.searchById(Integer.valueOf(target));
+            if (i == null){
+                System.out.println("No item found");
+            }else {
+                System.out.println(
+                        "Item ID :"+i.getItemID()+ "\n" +
+                                "Item Name: "+i.getItemName()+"\n"+
+                                "Item Desc: "+i.getItemDesc()+"\n"+
+                                "Item Price: RM"+i.getItemPrice()+"\n");
+            }
 
         }catch (Exception e){
             System.out.println(TEXT_RED + e + TEXT_RESET);
@@ -129,10 +167,11 @@ public class itemController {
 
     public void DisplayAllItem() {
         for (item i:itemService.displayAllItem().values()) {
-            System.out.println(i.getItemID()+ "\n" +
-                    i.getItemName()+"\n"+
-                    i.getItemDesc()+"\n"+
-                    i.getItemPrice());
+            System.out.println(
+                    "Item ID :"+i.getItemID()+ "\n" +
+                    "Item Name: "+i.getItemName()+"\n"+
+                    "Item Desc: "+i.getItemDesc()+"\n"+
+                    "Item Price: RM"+i.getItemPrice()+"\n");
         }
     }
 
