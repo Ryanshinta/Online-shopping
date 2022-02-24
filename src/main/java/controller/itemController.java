@@ -17,8 +17,7 @@ import static util.textColor.*;
  */
 public class itemController {
     ItemService itemService = new ItemService();
-    //item Item0001 = new item("TestProduct", "This is a test Product", BigDecimal.valueOf(99.99));
-    //item Item0002 = new item("TestProduct2", "This is a test Product2", BigDecimal.valueOf(99.92));
+
 
 
     public void menu() {
@@ -112,9 +111,16 @@ public class itemController {
     }
 
     public void SearchItem() {
-        item searchItem1 = itemService.searchById(0001);
-        item searchItem2 = itemService.searchById(0002);
-        System.out.println(searchItem1.toString() + "\n" + searchItem2.toString());
+        Scanner scanner = new Scanner(System.in);
+
+        try {
+            System.out.println("Enter your ID that you want to search");
+            String target = scanner.nextLine();
+
+        }catch (Exception e){
+            System.out.println(TEXT_RED + e + TEXT_RESET);
+            System.out.println(TEXT_RED + "invalid input Please enter again." + TEXT_RESET);
+        }
     }
 
     public void UpdateItem() {

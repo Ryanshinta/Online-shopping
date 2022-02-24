@@ -10,7 +10,7 @@ import static util.textColor.TEXT_RESET;
 
 public class testItemCRUD {
     public static void main(String[] args){
-/*
+
         ItemService itemService = new ItemService();
         item Item0001 = new item("TestProduct","This is a test Product", BigDecimal.valueOf(99.99));
         item Item0002 = new item("TestProduct2","This is a test Product2", BigDecimal.valueOf(99.92));
@@ -26,7 +26,7 @@ public class testItemCRUD {
         itemService.newItem(Item0005);
         itemService.newItem(Item0006);
         //Display All item
-
+/*
         for (item i:itemService.displayAllItem().values()) {
             System.out.println(i.getItemID());
         }
