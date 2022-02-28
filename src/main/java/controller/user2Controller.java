@@ -121,7 +121,6 @@ public class user2Controller {
                     break;
                 default:
                     System.out.println(TEXT_RED + "Option Not Found, Plese Try Again." + TEXT_RESET);
-
             }
         }
     }
