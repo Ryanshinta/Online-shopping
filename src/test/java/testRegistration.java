@@ -14,9 +14,7 @@ public class testRegistration {
     public static void main(String[] args) {
         
         user2Controller c = new user2Controller();
-        c.hardCodeUser();
-        c.registration();
-        c.displayList();
+        c.userMenu();
     }
     
 }

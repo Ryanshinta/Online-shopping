@@ -57,7 +57,6 @@ public class User {
     @Override
     public String toString() {
         return "username : " + username + ", password : " + password;
-
     }
 
     public String toString2() {
