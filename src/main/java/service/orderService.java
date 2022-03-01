@@ -12,7 +12,7 @@ public class orderService<T> implements orderMapper<T> {
     public orderService() {
         lastNode = null;
     }
-
+    @Override
     public void enqueue(T newEntry) {
         Node newNode = new Node(newEntry, null);
         if (isEmpty()) {  // going to insert the very first node to the queue
@@ -24,7 +24,7 @@ public class orderService<T> implements orderMapper<T> {
         lastNode = newNode;
 
     }
-
+    @Override
     public T dequeue() {
         T topValue = getFront();
 
@@ -41,7 +41,7 @@ public class orderService<T> implements orderMapper<T> {
 
         return topValue;
     }
-
+    @Override
     public T getFront() {
         T topValue = null;
 
@@ -51,7 +51,7 @@ public class orderService<T> implements orderMapper<T> {
         }
         return topValue;
     }
-
+    @Override
     public int getSize() {
         int size = 1;
         Node curNode = lastNode;
@@ -65,15 +65,15 @@ public class orderService<T> implements orderMapper<T> {
         }
         return size;
     }
-
+    @Override
     public boolean isEmpty() {
         return lastNode == null;
     }
-
+    @Override
     public void clear() {
         lastNode = null;
     }
-
+    @Override
     public T getEntry(int index) {
         T output = null;
         Node curNode = lastNode;
@@ -85,7 +85,7 @@ public class orderService<T> implements orderMapper<T> {
 
         return output;
     }
-
+    @Override
     public void swap(int index1, int index2) {
         Node curNode1 = lastNode;
         Node curNode2 = lastNode;
@@ -103,7 +103,7 @@ public class orderService<T> implements orderMapper<T> {
         curNode2.data = temp;
 
     }
-
+    @Override
     public void update(T newEntry, int index) {
         Node curNode = lastNode;
 
@@ -113,7 +113,7 @@ public class orderService<T> implements orderMapper<T> {
 
         curNode.data = newEntry;
     }
-
+    @Override
     public boolean bringFront(int index) {
         Node beforeNode = lastNode;
         Node afterNode = lastNode;
