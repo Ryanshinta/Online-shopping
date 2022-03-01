@@ -17,16 +17,16 @@ import static util.textColor.*;
  */
 public class userController {
 
-    private userMapper<User> userList = new UserService<>();
+    private userMapper userList = new UserService();
     private Scanner input = new Scanner(System.in);
 
     public void hardCodeUser() {
-        userList.add(new User("abc", "123"));
-        userList.add(new User("def", "456"));
-        userList.add(new User("ghi", "789"));
-        userList.add(new User("jkl", "012"));
+        userList.newUser(new User("abc", "123"));
+        userList.newUser(new User("def", "456"));
+        userList.newUser(new User("ghi", "789"));
+        userList.newUser(new User("jkl", "012"));
     }
-    
+
     public void characterInput() {
         while (!input.hasNextInt()) {
             System.out.println(TEXT_RED + "Error: Can only accept integer.\n" + TEXT_RESET);
@@ -121,6 +121,7 @@ public class userController {
                     break;
                 default:
                     System.out.println(TEXT_RED + "Option Not Found, Plese Try Again." + TEXT_RESET);
+
             }
         }
     }
@@ -138,11 +139,8 @@ public class userController {
             System.out.print("Username         : ");
             username = input.nextLine();
         }
-        for (int i = 1; i <= userList.getNumberOfEntries(); i++) {
-            String mn = userList.getEntry(i).getUsername();
-            if (mn.equals(username)) {
-                n++;
-            }
+        if (userList.searchByUsernameBoolean(username)) {
+            n++;
         }
         if (n != 0) {
             System.out.println(TEXT_RED + "\nError: [" + username + "] registered before." + TEXT_RESET);
@@ -166,7 +164,7 @@ public class userController {
                 }
             } while (!(password).equals(confirmpassword));
             User s = new User(username, password);
-            if (userList.add(s)) {
+            if (userList.newUser(s)) {
                 System.out.println(
                         TEXT_GREEN + "\nAccount for [" + username + "] has been registered successfully." + TEXT_RESET);
             }
@@ -193,7 +191,7 @@ public class userController {
             password = input.nextLine();
         }
         User login = new User(username, password);
-        if (!userList.contains(login)) {
+        if (!userList.containUser(login)) {
             System.out.println(TEXT_RED + "\nError: Wrong username or password." + TEXT_RESET);
         } else {
             System.out.println(TEXT_GREEN + "\nSuccessfully login." + TEXT_RESET);
@@ -202,16 +200,15 @@ public class userController {
     }
 
     public void displayList() {
-        if (userList.isEmpty()) {
+        if (userList.displayAllUser() == null) {
             System.out.println(TEXT_GREEN + "No user found." + TEXT_RESET);
         } else {
             System.out.println(TEXT_BLUE + "\n                User List                " + TEXT_RESET);
-            System.out.println("============================================\n"
-                    + "   Username             Password            \n"
-                    + "============================================");
-            for (int i = 1; i <= userList.getNumberOfEntries(); i++) {
-                System.out.printf(i + ". " + userList.getEntry(i).toString2() + "\n");
-            }
+            System.out.println("=============================================\n"
+                    + "    Username             Password            \n"
+                    + "=============================================");
+            System.out.printf(userList.displayAllUser() + "\n");
+
             System.out.println("============================================");
         }
     }
@@ -254,11 +251,8 @@ public class userController {
             System.out.print("Username         : ");
             username = input.nextLine();
         }
-        for (int i = 1; i <= userList.getNumberOfEntries(); i++) {
-            String mn = userList.getEntry(i).getUsername();
-            if (mn.equals(username)) {
-                n++;
-            }
+        if (userList.searchByUsernameBoolean(username)) {
+            n++;
         }
         if (n != 0) {
             String password;
@@ -280,28 +274,11 @@ public class userController {
                 }
             } while (!(password).equals(confirmpassword));
 
-            for (int i = 1; i <= userList.getNumberOfEntries(); i++) {
-                String us = userList.getEntry(i).getUsername();
-                String pa = userList.getEntry(i).getPassword();
-                User resetUser = new User(us, pa);
-
-                if (username.equals(us)) {
-                    userList.remove(resetUser);
-                }
-
+            if (userList.resetPassword(username, password)) {
+                System.out.println(TEXT_GREEN + "\nAccount for [" + username + "] has been reset successfully." + TEXT_RESET);
+                System.out.println("final" + ":" + userList.searchByUsername(username).getUsername() + "," + userList.searchByUsername(username).getPassword());
             }
-            User addUser = new User(username, password);
-            if (userList.add(addUser)) {
-                System.out.println(
-                        TEXT_GREEN + "\nAccount for [" + username + "] has been reset successfully." + TEXT_RESET);
-                for (int i = 1; i <= userList.getNumberOfEntries(); i++) {
-                    String us = userList.getEntry(i).getUsername();
-                    String pa = userList.getEntry(i).getPassword();
 
-                    System.out.println("final" + ":" + us + "," + pa);
-
-                }
-            }
         } else {
 
             System.out.println(TEXT_RED + "\nError: [" + username + "] user not found." + TEXT_RESET);
