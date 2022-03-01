@@ -7,6 +7,7 @@ package controller;
 
 import entity.User;
 import dao.userMapper;
+import entity.item;
 import service.ItemService;
 import service.UserService;
 
@@ -225,22 +226,53 @@ public class userController {
     }
 
     public void wishlist() {
-
-        System.out.println(TEXT_BLUE + "\n                Wish List                " + TEXT_RESET);
-        System.out.println(
-                  "===================================\n"
-                + "   Product                  Price   \n"
-                + "===================================");
-        //    for (int i = 1; i <= userList.getNumberOfEntries(); i++) {
-        //        System.out.printf(i + ". " + userList.getEntry(i).toString2() + "\n");
-        //    }
-        System.out.println("============================================");
-        //}
+        displayWishList();
         wishlistMenu();
+
     }
 
     public void addWishlist() {
+        System.out.println(TEXT_BLUE + "\n                Wish List                " + TEXT_RESET);
+        System.out.println(
+                          "====================================================================\n"
+                        + "ID       Product Name           Desc                       Price   \n"
+                        + "====================================================================");
+        for (item i : itemService.displayAllItem().values()) {
+            System.out.printf("%-8d %-15s        %-25s  RM %.2f \n",
+                            i.getItemID(), i.getItemName() ,i.getItemDesc() ,i.getItemPrice());
+        }
 
+        System.out.println("Please enter The Item ID to proceed: ");
+        Integer ItemID = input.nextInt();
+        try {
+           item i =  itemService.searchById(ItemID);
+           CurrentUser.getWishList().add(i);
+            System.out.println(TEXT_GREEN + "\nSuccessfully Add." + TEXT_RESET);
+        }catch (Exception e){
+            System.out.println(e);
+        }
+
+
+    }
+
+    public void displayWishList(){
+        if (CurrentUser.getWishList().size() == 0){
+            System.out.println(TEXT_GREEN + "No wish list found." + TEXT_RESET);
+        }else {
+
+            System.out.println(TEXT_BLUE + "\n                Wish List                " + TEXT_RESET);
+            System.out.println(
+                    "====================================================================\n"
+                            + "ID       Product Name           Desc                       Price   \n"
+                            + "====================================================================");
+            for(int i = 0; i < CurrentUser.getWishList().size(); i++) {
+                item n = (item) CurrentUser.getWishList().get(i);
+                System.out.printf("%-8d %-15s        %-25s  RM %.2f \n",
+                        n.getItemID(),n.getItemName(),n.getItemDesc(),n.getItemPrice());
+            }
+
+
+        }
     }
 
     public void removeWishlist() {

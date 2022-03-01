@@ -11,12 +11,7 @@ public class User {
     public User(String username, String password) {
         this.username = username;
         this.password = password;
-    }
-
-    public User(String username, String password, ArrayList wishList) {
-        this.username = username;
-        this.password = password;
-        WishList = wishList;
+        WishList = new ArrayList<item>();
     }
 
     public ArrayList getWishList() {
