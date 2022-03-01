@@ -227,6 +227,7 @@ public class userController {
 
     public void wishlist() {
         displayWishList();
+
         wishlistMenu();
 
     }
