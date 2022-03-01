@@ -75,7 +75,7 @@ public class itemController {
 
                 System.out.println("Enter the price for item");
                 String itemPrice = scanner.nextLine();
-                if (StringUtils.isNumeric(itemPrice) || StringUtils.isAllEmpty(itemPrice) || StringUtils.isBlank(itemPrice)) {
+                if (StringUtils.isNumeric(itemDesc) || StringUtils.isAllEmpty(itemPrice) || StringUtils.isBlank(itemPrice)) {
                     throw new Exception();
                 }
 

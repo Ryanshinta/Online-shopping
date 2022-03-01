@@ -15,7 +15,7 @@ import static util.textColor.*;
  *
  * @author YoonEn
  */
-public class user2Controller {
+public class userController {
 
     private userMapper<User> userList = new UserService<>();
     private Scanner input = new Scanner(System.in);

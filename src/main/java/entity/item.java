@@ -12,6 +12,7 @@ public class item {
     private String itemName;
     private String itemDesc;
     private BigDecimal itemPrice;
+    private boolean isDisable;
 
     public item(String itemName, String itemDesc, BigDecimal itemPrice) {
         AutoIncrease++;
@@ -19,12 +20,20 @@ public class item {
         this.itemName = itemName;
         this.itemDesc = itemDesc;
         this.itemPrice = itemPrice;
+        isDisable = false;
     }
 
     public Integer getItemID() {
         return itemID;
     }
 
+    public boolean isDisable() {
+        return isDisable;
+    }
+
+    public void setDisable(boolean disable) {
+        isDisable = disable;
+    }
 
     public String getItemName() {
         return itemName;

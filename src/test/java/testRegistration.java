@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-import controller.user2Controller;
+import controller.userController;
 
 /**
  *
@@ -13,7 +13,7 @@ public class testRegistration {
     
     public static void main(String[] args) {
         
-        user2Controller c = new user2Controller();
+        userController c = new userController();
         c.userMenu();
     }
     
