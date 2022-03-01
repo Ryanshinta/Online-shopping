@@ -9,7 +9,7 @@ import controller.userController;
  *
  * @author Acer
  */
-public class testRegistration {
+public class testUser {
     
     public static void main(String[] args) {
         
