@@ -5,6 +5,7 @@
  */
 package dao;
 import entity.User;
+import entity.item;
 
 /**
  *
@@ -27,5 +28,6 @@ public interface userMapper {
     boolean containUser(User u);
 
     String displayAllUser();
+
 
 }

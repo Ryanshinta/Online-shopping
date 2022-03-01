@@ -7,18 +7,23 @@ package controller;
 
 import entity.User;
 import dao.userMapper;
+import service.ItemService;
 import service.UserService;
+
+import java.util.ArrayList;
 import java.util.Scanner;
 import static util.textColor.*;
 
 /**
  *
- * @author YoonEn
+ * @author YoonEn,Ouyang(Wish List)
  */
 public class userController {
 
     private userMapper userList = new UserService();
+    private ItemService itemService = new ItemService();
     private Scanner input = new Scanner(System.in);
+    private User CurrentUser = null;
 
     public void hardCodeUser() {
         userList.newUser(new User("abc", "123"));
@@ -73,7 +78,8 @@ public class userController {
     public void userMenu2() {
         int selection = 0;
         while (selection != 2) {
-            System.out.println("\n|~~~~~~~~~~~~~~~~~~~~|");
+            System.out.println(TEXT_BLUE+"\nCurrent User:"+CurrentUser.getUsername()+TEXT_RESET);
+            System.out.println("|~~~~~~~~~~~~~~~~~~~~|");
             System.out.println("|        Menu        |");
             System.out.println("|~~~~~~~~~~~~~~~~~~~~|");
             System.out.println("|    1. Wishlist     |");
@@ -88,6 +94,7 @@ public class userController {
                     wishlist();
                     break;
                 case 2:
+                    logout();
                     break;
                 default:
                     System.out.println(TEXT_RED + "Option Not Found, Plese Try Again." + TEXT_RESET);
@@ -95,7 +102,10 @@ public class userController {
             }
         }
     }
-
+    public void logout(){
+        CurrentUser = null;
+        System.out.println(TEXT_GREEN+"Log out successfully"+TEXT_RESET);
+    }
     public void wishlistMenu() {
         int selection = 0;
         while (selection != 3) {
@@ -195,6 +205,7 @@ public class userController {
             System.out.println(TEXT_RED + "\nError: Wrong username or password." + TEXT_RESET);
         } else {
             System.out.println(TEXT_GREEN + "\nSuccessfully login." + TEXT_RESET);
+            CurrentUser = login;
             userMenu2();
         }
     }
@@ -214,13 +225,12 @@ public class userController {
     }
 
     public void wishlist() {
-        //if (userList.isEmpty()) {
-        //    System.out.println(TEXT_GREEN + "No user found." + TEXT_RESET);
-        //} else {
+
         System.out.println(TEXT_BLUE + "\n                Wish List                " + TEXT_RESET);
-        System.out.println("============================================\n"
-                + "   Product         Quantity         Price   \n"
-                + "============================================");
+        System.out.println(
+                  "===================================\n"
+                + "   Product                  Price   \n"
+                + "===================================");
         //    for (int i = 1; i <= userList.getNumberOfEntries(); i++) {
         //        System.out.printf(i + ". " + userList.getEntry(i).toString2() + "\n");
         //    }

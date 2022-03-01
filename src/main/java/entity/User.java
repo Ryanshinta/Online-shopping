@@ -1,14 +1,30 @@
 package entity;
 
+import java.util.ArrayList;
 import java.util.Objects;
 
 public class User {
     private String username;
     private String password;
+    private ArrayList<item> WishList;
 
     public User(String username, String password) {
         this.username = username;
         this.password = password;
+    }
+
+    public User(String username, String password, ArrayList wishList) {
+        this.username = username;
+        this.password = password;
+        WishList = wishList;
+    }
+
+    public ArrayList getWishList() {
+        return WishList;
+    }
+
+    public void setWishList(ArrayList wishList) {
+        WishList = wishList;
     }
 
     public String getUsername() {
