@@ -13,7 +13,7 @@ import java.util.ArrayList;
  * @author YoonEn
  */
 public class UserService implements userMapper {
-    private ArrayList<User> UserArray = new ArrayList<User>();
+    private static ArrayList<User> UserArray = new ArrayList<User>();
 
     @Override
     public boolean newUser(User u) {
