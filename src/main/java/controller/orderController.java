@@ -11,6 +11,7 @@ import java.util.Scanner;
 import java.util.ArrayList;
 import java.util.HashMap;
 import service.*;
+import static util.textColor.*;
 
 /**
  *
@@ -49,7 +50,7 @@ public class orderController {
                 displayCart();
                 returnMenu();
             } else if (selection != 4) {
-                System.out.println("Invalid input !!!\n");
+                System.out.println(TEXT_RED + "Invalid input !!!\n" + TEXT_RESET);
             }
 
         } while (selection != 4);
@@ -100,55 +101,89 @@ public class orderController {
 
         displayCart();
 
-        do {
-            System.out.println("Enter the item you want to remove (exp:2)");
+        if (tempOrder.isEmpty()) {
+            System.out.println("\nThe shopping cart is empty.......\n");
+        } else {
+            do {
+                System.out.println("Enter the item you want to remove (exp:2)");
+                try {
+                    selection = scanner.nextInt();
+                    scanner.nextLine();
+                    if (selection > tempOrder.size() || selection < 1) {
+                        buffer = false;
+                        System.out.println(TEXT_RED + "\nThe number entered is out of range !!\n" + TEXT_RESET);
+
+                    } else {
+                        do {
+                            System.out.println("Comfirm remove item no." + selection + " ? (y/n) : ");
+                            x = scanner.nextLine();
+
+                            if ("N".equals(x.toUpperCase())) {
+                                buffer = true;
+                            } else if ("Y".equals(x.toUpperCase())) {
+                                tempOrder.remove(selection - 1);
+                                System.out.println(TEXT_GREEN + "\nRemove successfully form cart !!" + TEXT_RESET);
+                                buffer = true;
+                            } else {
+                                System.out.println(TEXT_RED + "\nInvalid input, please enter 'y' or 'n'\n" + TEXT_RESET);
+                                buffer = false;
+                            }
+                        } while (buffer == false);
+                    }
+                } catch (Exception e) {
+                    System.out.println(TEXT_RED + "\nOnly enter digit !!!!\n" + TEXT_RESET);
+                    buffer = false;
+                    scanner.nextLine();
+
+                }
+
+            } while (buffer == false);
+        }
+    }
+
+    public void updateFromCart() {
+        int selection=0;
+        boolean buffer = true;
+        
+        displayCart();
+        
+        if (tempOrder.isEmpty()) {
+            System.out.println("\nThe shopping cart is empty.......\n");
+        } else {
+            System.out.println("Enter the item you want to update (exp:2)");
             try {
                 selection = scanner.nextInt();
                 scanner.nextLine();
-                if (selection > tempOrder.size() || selection < 1) {
-                    buffer = false;
-                    System.out.println("\nThe number entered is out of range !!\n");
-
-                } else {
-                    do {
-                        System.out.println("Comfirm remove item no." + selection + " ? (y/n) : ");
-                        x = scanner.nextLine();
-
-                        if ("N".equals(x.toUpperCase())) {
-                            buffer = true;
-                        } else if ("Y".equals(x.toUpperCase())) {
-                            tempOrder.remove(selection - 1);
-                            System.out.println("\nRemove successfully form cart !!");
-                            buffer = true;
-                        } else {
-                            System.out.println("\nInvalid input, please enter 'y' or 'n'\n");
-                            buffer = false;
-                        }
-                    } while (buffer == false);
-                }
+                
+                tempOrder.get(selection-1);
+                
             } catch (Exception e) {
-                System.out.println("\nOnly enter digit !!!!\n");
+                System.out.println(TEXT_RED + "\nOnly enter digit !!!!\n" + TEXT_RESET);
                 buffer = false;
                 scanner.nextLine();
 
             }
-            
-        } while (buffer == false);
+        }
     }
 
     public void displayCart() {
         int counter = 0;
         String selection = "";
         BigDecimal total = BigDecimal.valueOf(0);
-        System.out.println("---------------------------------------------------------------------------------------------");
+        System.out.println("----------------------------------------------------------------------------------------------");
         System.out.println("|                                    Shopping Cart                                           |");
         System.out.println("|--------------------------------------------------------------------------------------------|");
         System.out.println("| No | Item ID | Item Name    |     Description          | Price/unit | Quantity | Subtotal  |");
         System.out.println("|--------------------------------------------------------------------------------------------|");
 
-        for (int j = 0; j < tempOrder.size(); j++) {
-            System.out.println("| " + ++counter + ". | " + tempOrder.get(j).toString());
-            total = total.add(tempOrder.get(j).getSubtotal());
+        if (tempOrder.isEmpty()) {
+            System.out.println("| -  |    -    |     -        |          -               |     -      |    -     |    -      |");
+        } else {
+
+            for (int j = 0; j < tempOrder.size(); j++) {
+                System.out.println("| " + ++counter + ". | " + tempOrder.get(j).toString());
+                total = total.add(tempOrder.get(j).getSubtotal());
+            }
         }
         System.out.println("|--------------------------------------------------------------------------------------------|");
         System.out.println("                                                                                 |  " + total + "  |");
