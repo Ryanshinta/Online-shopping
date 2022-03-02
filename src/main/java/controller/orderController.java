@@ -59,7 +59,7 @@ public class orderController {
                     System.out.println(TEXT_RED + "Invalid input !!!\n" + TEXT_RESET);
                 }
             } catch (Exception e) {
-                System.out.println(TEXT_RED + "\nOnly enter digit !!!!\n" + TEXT_RESET);
+                System.out.println(TEXT_RED + "\nOnly enter integer !!!!\n" + TEXT_RESET);
                 selection = 6;
                 scanner.nextLine();
 
@@ -142,7 +142,7 @@ public class orderController {
                         } while (buffer == false);
                     }
                 } catch (Exception e) {
-                    System.out.println(TEXT_RED + "\nOnly enter digit !!!!\n" + TEXT_RESET);
+                    System.out.println(TEXT_RED + "\nOnly enter integer !!!!\n" + TEXT_RESET);
                     buffer = false;
                     scanner.nextLine();
 
@@ -170,7 +170,7 @@ public class orderController {
                     selection = scanner.nextInt();
                     scanner.nextLine();
                 } catch (Exception e) {
-                    System.out.println(TEXT_RED + "\nOnly enter digit !!!!\n" + TEXT_RESET);
+                    System.out.println(TEXT_RED + "\nOnly enter integer !!!!\n" + TEXT_RESET);
                     buffer = false;
                     scanner.nextLine();
 
@@ -199,13 +199,13 @@ public class orderController {
 
                                 if (selection2 == -1) {
                                     buffer = true;
-                                } else if (selection < 1) {
+                                } else if (selection2 < 1) {
                                     buffer = false;
                                     System.out.println(TEXT_RED + "\nThe number entered is out of range !!\n" + TEXT_RESET);
 
                                 } else {
                                     do {
-                                        System.out.println("Comfirm remove item no." + selection + " ? (y/n) : ");
+                                        System.out.println("Comfirm update item no." + selection + " ? (y/n) : ");
                                         x = scanner.nextLine();
 
                                         if ("N".equals(x.toUpperCase())) {
@@ -221,7 +221,7 @@ public class orderController {
                                     } while (buffer == false);
                                 }
                             } catch (Exception e) {
-                                System.out.println(TEXT_RED + "\nOnly enter digit !!!!\n" + TEXT_RESET);
+                                System.out.println(TEXT_RED + "\nOnly enter integer !!!!\n" + TEXT_RESET);
                                 buffer = false;
                                 scanner.nextLine();
 
