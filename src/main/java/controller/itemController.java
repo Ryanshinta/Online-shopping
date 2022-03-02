@@ -224,12 +224,14 @@ public class itemController {
     }
 
     public void DisplayAllItem() {
+        System.out.println(TEXT_BLUE + "\n                Wish List                " + TEXT_RESET);
+        System.out.println(
+                "====================================================================\n"
+                        + "ID       Product Name           Desc                       Price   \n"
+                        + "====================================================================");
         for (item i : itemService.displayAllItem().values()) {
-            System.out.println(
-                    "Item ID :" + i.getItemID() + "\n" +
-                            "Item Name: " + i.getItemName() + "\n" +
-                            "Item Desc: " + i.getItemDesc() + "\n" +
-                            "Item Price: RM" + i.getItemPrice() + "\n");
+            System.out.printf("%-8d %-15s        %-25s  RM %.2f \n",
+                    i.getItemID(),i.getItemName(),i.getItemDesc(),i.getItemPrice());
         }
     }
 

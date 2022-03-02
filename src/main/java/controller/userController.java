@@ -247,9 +247,14 @@ public class userController {
         Integer ItemID = input.nextInt();
         try {
            item i =  itemService.searchById(ItemID);
+           if (i.equals(null)){
+
+               throw new NullPointerException();
+           }
            CurrentUser.getWishList().add(i);
             System.out.println(TEXT_GREEN + "\nSuccessfully Add." + TEXT_RESET);
         }catch (Exception e){
+            System.out.println(TEXT_RED+"Add failed, The item be null, Please check the Item ID"+TEXT_RESET);
             System.out.println(e);
         }
 
