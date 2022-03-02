@@ -37,27 +37,34 @@ public class orderController {
             System.out.println("-         4.Display Cart      -");
             System.out.println("-         5.End               -");
             System.out.println("-------------------------------");
-            System.out.println("Please enter to Proceed (exp : 1):  ");
-            selection = scanner.nextInt();
-            scanner.nextLine();
 
-            if (selection == 1) {
-                addToCart();
-                returnMenu();
-            } else if (selection == 2) {
-                removeFromCart();
-                returnMenu();
-            } else if (selection == 3) {
-                updateFromCart();
-                returnMenu();
-            } else if (selection == 4) {
-                displayCart();
-                returnMenu();
-            } else if (selection != 5) {
-                System.out.println(TEXT_RED + "Invalid input !!!\n" + TEXT_RESET);
+            try {
+                System.out.println("Please enter to Proceed (exp : 1):  ");
+                selection = scanner.nextInt();
+                scanner.nextLine();
+
+                if (selection == 1) {
+                    addToCart();
+                    returnMenu();
+                } else if (selection == 2) {
+                    removeFromCart();
+                    returnMenu();
+                } else if (selection == 3) {
+                    updateFromCart();
+                    returnMenu();
+                } else if (selection == 4) {
+                    displayCart();
+                    returnMenu();
+                } else if (selection != 5) {
+                    System.out.println(TEXT_RED + "Invalid input !!!\n" + TEXT_RESET);
+                }
+            } catch (Exception e) {
+                System.out.println(TEXT_RED + "\nOnly enter digit !!!!\n" + TEXT_RESET);
+                selection = 6;
+                scanner.nextLine();
+
             }
-
-        } while (selection != 4);
+        } while (selection != 5);
 
     }
 
@@ -156,56 +163,73 @@ public class orderController {
         if (tempOrder.isEmpty()) {
             System.out.println("\nThe shopping cart is empty.......\n");
         } else {
-            System.out.println("Enter the item you want to update (exp:2)");
-            try {
-                selection = scanner.nextInt();
-                scanner.nextLine();
-                if (selection > tempOrder.size() || selection < 1) {
-                    buffer = false;
-                    System.out.println(TEXT_RED + "\nThe number entered is out of range !!\n" + TEXT_RESET);
-
-                } else {
-                    tempOrder.get(selection - 1);
-
-                    System.out.println("Item No : " + selection);
-
-                    menuHeading();
-                    System.out.println("| " + selection + ". | " + tempOrder.get(selection - 1).toString());
-                    System.out.println("|--------------------------------------------------------------------------------------------|");
-
-                    System.out.println("\nEnter the new quantity (-1 to exit): ");
-                    selection2 = scanner.nextInt();
+            do {
+                buffer = true;
+                System.out.println("Enter the item you want to update (-1 to exit)");
+                try {
+                    selection = scanner.nextInt();
                     scanner.nextLine();
-                    if (selection2 == -1) {
+                } catch (Exception e) {
+                    System.out.println(TEXT_RED + "\nOnly enter digit !!!!\n" + TEXT_RESET);
+                    buffer = false;
+                    scanner.nextLine();
+
+                }
+                if (buffer != false) {
+                    if (selection == -1) {
                         buffer = true;
-                    } else if (selection < 1) {
+                    } else if (selection > tempOrder.size() || selection < 1) {
                         buffer = false;
                         System.out.println(TEXT_RED + "\nThe number entered is out of range !!\n" + TEXT_RESET);
 
                     } else {
-                        do {
-                            System.out.println("Comfirm remove item no." + selection + " ? (y/n) : ");
-                            x = scanner.nextLine();
+                        tempOrder.get(selection - 1);
 
-                            if ("N".equals(x.toUpperCase())) {
-                                buffer = true;
-                            } else if ("Y".equals(x.toUpperCase())) {
-                                tempOrder.get(selection - 1).setQuantity(selection2);
-                                System.out.println(TEXT_GREEN + "\nUpdate successfully  !!" + TEXT_RESET);
-                                buffer = true;
-                            } else {
-                                System.out.println(TEXT_RED + "\nInvalid input, please enter 'y' or 'n'\n" + TEXT_RESET);
+                        System.out.println("Item No : " + selection);
+
+                        menuHeading();
+                        System.out.println("| " + selection + ". | " + tempOrder.get(selection - 1).toString());
+                        System.out.println("|--------------------------------------------------------------------------------------------|");
+
+                        do {
+                            System.out.println("\nEnter the new quantity (-1 to exit): ");
+                            try {
+                                selection2 = scanner.nextInt();
+                                scanner.nextLine();
+
+                                if (selection2 == -1) {
+                                    buffer = true;
+                                } else if (selection < 1) {
+                                    buffer = false;
+                                    System.out.println(TEXT_RED + "\nThe number entered is out of range !!\n" + TEXT_RESET);
+
+                                } else {
+                                    do {
+                                        System.out.println("Comfirm remove item no." + selection + " ? (y/n) : ");
+                                        x = scanner.nextLine();
+
+                                        if ("N".equals(x.toUpperCase())) {
+                                            buffer = true;
+                                        } else if ("Y".equals(x.toUpperCase())) {
+                                            tempOrder.get(selection - 1).setQuantity(selection2);
+                                            System.out.println(TEXT_GREEN + "\nUpdate successfully  !!" + TEXT_RESET);
+                                            buffer = true;
+                                        } else {
+                                            System.out.println(TEXT_RED + "\nInvalid input, please enter 'y' or 'n'\n" + TEXT_RESET);
+                                            buffer = false;
+                                        }
+                                    } while (buffer == false);
+                                }
+                            } catch (Exception e) {
+                                System.out.println(TEXT_RED + "\nOnly enter digit !!!!\n" + TEXT_RESET);
                                 buffer = false;
+                                scanner.nextLine();
+
                             }
                         } while (buffer == false);
                     }
                 }
-            } catch (Exception e) {
-                System.out.println(TEXT_RED + "\nOnly enter digit !!!!\n" + TEXT_RESET);
-                buffer = false;
-                scanner.nextLine();
-
-            }
+            } while (buffer == false);
         }
     }
 
