@@ -1,6 +1,7 @@
 
 import controller.itemController;
 import entity.item;
+import org.apache.commons.lang3.StringUtils;
 import service.ItemService;
 
 import java.math.BigDecimal;
@@ -35,9 +36,13 @@ public class testItemCRUD {
 
 
 
-
-
-
+//        String str1 = "QWER";
+//        String str2 = "1234";
+//        String str3 = "12.34";
+//
+//        System.out.println(StringUtils.isNumeric(str1));
+//        System.out.println(StringUtils.isNumeric(str2));
+//        System.out.println(StringUtils.isNumeric(str3));
 //
 //        // search item
 //        item searchItem1 = itemService.searchById(1);
