@@ -4,27 +4,30 @@
  * and open the template in the editor.
  */
 package dao;
+import entity.User;
+import entity.item;
 
 /**
  *
  * @author YoonEn
  */
-public interface userMapper<T> {
+public interface userMapper {
 
-    public boolean add(T newEntry);
+    boolean newUser(User u);
 
-    public void clear();
+    boolean deleteUser(User u);
 
-    public boolean remove(T anEntry);
+    boolean updateUser(User o, User n);
+    
+    boolean resetPassword(String username, String newPassword);
 
-    public int getNumberOfEntries();
+    User searchByUsername(String username);
+    
+    boolean searchByUsernameBoolean(String username);
+    
+    boolean containUser(User u);
 
-    public T getEntry(int givenPosition);
+    String displayAllUser();
 
-    public boolean contains(T anEntry);
-
-    public boolean isEmpty();
-
-    public boolean isFull();
 
 }

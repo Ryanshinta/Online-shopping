@@ -74,15 +74,18 @@ public class itemController {
                 }
 
                 System.out.println("Enter the price for item");
-                String itemPrice = scanner.nextLine();
-                if (StringUtils.isNumeric(itemPrice) || StringUtils.isAllEmpty(itemPrice) || StringUtils.isBlank(itemPrice)) {
-                    throw new Exception();
+                Double itemPrice = scanner.nextDouble();
+
+
+                if (itemPrice.equals(null) || itemPrice.equals(" ") || itemPrice <= 0) {
+                    throw new InputMismatchException();
                 }
 
                 System.out.println("New Item Name :" + itemName);
                 System.out.println("New Item Desc :" + itemDesc);
                 System.out.println("New Item Price :" + itemPrice);
                 System.out.println("Process to create new item?(Yes = y, No = n)");
+                scanner.nextLine();
                 String i = scanner.nextLine();
                 if (i.equals("y") || i.equals("Y")) {
                     itemService.newItem(new item(itemName, itemDesc, BigDecimal.valueOf(Double.valueOf(itemPrice))));
@@ -95,6 +98,10 @@ public class itemController {
 
 
                 break;
+            } catch (InputMismatchException i){
+                System.out.println(TEXT_RED + i + TEXT_RESET);
+                scanner.nextLine();
+                System.out.println(TEXT_RED + "invalid input Please enter again." + TEXT_RESET);
             } catch (Exception e) {
                 System.out.println(TEXT_RED + e + TEXT_RESET);
                 System.out.println(TEXT_RED + "invalid input Please enter again." + TEXT_RESET);
@@ -198,8 +205,8 @@ public class itemController {
                         break;
                     case 3:
                         System.out.println("Enter the price for item");
-                        String itemPrice = scanner.nextLine();
-                        if (StringUtils.isNumeric(itemPrice) || StringUtils.isAllEmpty(itemPrice) || StringUtils.isBlank(itemPrice)) {
+                        Double itemPrice = scanner.nextDouble();
+                        if (itemPrice.equals(null) || itemPrice.equals(" ")) {
                             throw new Exception();
                         }
                         i.setItemPrice(BigDecimal.valueOf(Double.valueOf(itemPrice)));
@@ -224,12 +231,14 @@ public class itemController {
     }
 
     public void DisplayAllItem() {
+        System.out.println(TEXT_BLUE + "\n                Wish List                " + TEXT_RESET);
+        System.out.println(
+                "====================================================================\n"
+                        + "ID       Product Name           Desc                       Price   \n"
+                        + "====================================================================");
         for (item i : itemService.displayAllItem().values()) {
-            System.out.println(
-                    "Item ID :" + i.getItemID() + "\n" +
-                            "Item Name: " + i.getItemName() + "\n" +
-                            "Item Desc: " + i.getItemDesc() + "\n" +
-                            "Item Price: RM" + i.getItemPrice() + "\n");
+            System.out.printf("%-8d %-15s        %-25s  RM %.2f \n",
+                    i.getItemID(),i.getItemName(),i.getItemDesc(),i.getItemPrice());
         }
     }
 

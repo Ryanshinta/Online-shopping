@@ -4,94 +4,91 @@
  * and open the template in the editor.
  */
 package service;
-
+import entity.User;
 import dao.userMapper;
+
+import java.util.ArrayList;
 
 /**
  *
  * @author YoonEn
  */
-public class UserService<T> implements userMapper<T> {
-    private T[] array;
-    private int numberOfEntries;
-    private static final int DEFAULT_CAPACITY = 100;
+public class UserService implements userMapper {
+    private static ArrayList<User> UserArray = new ArrayList<User>();
 
-    public UserService() {
-        this(DEFAULT_CAPACITY);
-    }
-
-    public UserService(int initialCapacity) {
-        numberOfEntries = 0;
-        array = (T[]) new Object[initialCapacity];
+    @Override
+    public boolean newUser(User u) {
+        if(UserArray.add(u)) {
+            return true;
+        }
+        return false;
     }
 
     @Override
-    public boolean add(T newEntry) {
-        array[numberOfEntries] = newEntry;
-        numberOfEntries++;
+    public boolean deleteUser(User u) {
+        if(UserArray.remove(u)) {
+            return true;
+        }
+        return false;
+    }
+
+    @Override
+    public boolean updateUser(User old, User newUser) {
+        int i = UserArray.indexOf(old);
+        UserArray.add(i, newUser);
         return true;
     }
 
     @Override
-    public void clear() {
-        numberOfEntries = 0;
-    }
-
-    @Override
-    public int getNumberOfEntries() {
-        return numberOfEntries;
-    }
-
-    @Override
-    public T getEntry(int givenPosition) {
-        T result = null;
-
-        if ((givenPosition >= 1) && (givenPosition <= numberOfEntries)) {
-            result = array[givenPosition - 1];
-        }
-        return result;
-    }
-
-    @Override
-    public boolean contains(T anEntry) {
-        boolean found = false;
-        for (int index = 0; !found && (index < numberOfEntries); index++) {
-            if (anEntry.equals(array[index])) {
-                found = true;
+    public User searchByUsername(String username) {
+        for(User user:UserArray) {
+            if(user.getUsername().equals(username)) {
+                return user;
             }
         }
-        return found;
+        return null;
     }
 
     @Override
-    public boolean remove(T anEntry) {
-        for (int i = 0; i < numberOfEntries; i++) {
-            if (array[i].equals(anEntry)) {
-                removeGap(i);
-                numberOfEntries--;
+    public boolean searchByUsernameBoolean(String username) {
+        for(User user:UserArray) {
+            if(user.getUsername().equals(username)) {
+                return true;
+            }
+        }
+        return false;
+    }
+    
+    @Override
+    public boolean containUser(User u) {
+        for(User user:UserArray) {
+            if(user.equals(u)) {
                 return true;
             }
         }
         return false;
     }
 
-    private void removeGap(int givenPosition) {
-        int removeIndex = givenPosition;
-        int lastIndex = numberOfEntries - 1;
-
-        for (int index = removeIndex; index < lastIndex; index++) {
-            array[index] = array[index + 1];
+    @Override
+    public String displayAllUser() {
+        String str = "";
+        if(UserArray.isEmpty()) {
+            return null;
         }
+        for(int i = 0; i < UserArray.size(); i++) {
+            str += String.format("%02d. %-20s %-20s\n", i + 1, UserArray.get(i).getUsername(), UserArray.get(i).getPassword());
+        }
+        return str;
     }
 
     @Override
-    public boolean isEmpty() {
-        return numberOfEntries == 0;
+    public boolean resetPassword(String username, String newPassword) {
+        for(User user:UserArray) {
+            if(user.getUsername().equals(username)) {
+                user.setPassword(newPassword);
+                return true;
+            }
+        }
+        return false;
     }
-
-    @Override
-    public boolean isFull() {
-        return numberOfEntries == array.length;
-    }
-
 }

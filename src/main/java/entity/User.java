@@ -1,14 +1,25 @@
 package entity;
 
+import java.util.ArrayList;
 import java.util.Objects;
 
 public class User {
     private String username;
     private String password;
+    private ArrayList<item> WishList;
 
     public User(String username, String password) {
         this.username = username;
         this.password = password;
+        WishList = new ArrayList<item>();
+    }
+
+    public ArrayList getWishList() {
+        return WishList;
+    }
+
+    public void setWishList(ArrayList wishList) {
+        WishList = wishList;
     }
 
     public String getUsername() {
@@ -57,11 +68,6 @@ public class User {
     @Override
     public String toString() {
         return "username : " + username + ", password : " + password;
-
-    }
-
-    public String toString2() {
-        return String.format("%-20s %-20s", username, password);
     }
 
 }
