@@ -114,7 +114,7 @@ public class userController {
             System.out.println("|     Manage Wishlist    |");
             System.out.println("|~~~~~~~~~~~~~~~~~~~~~~~~|");
             System.out.println("|    1. Add Product      |");
-            System.out.println("|    2. Remove Product   |");
+            System.out.println("|    2. View My WishList |");
             System.out.println("|    3. Exit             |");
             System.out.println("|~~~~~~~~~~~~~~~~~~~~~~~~|");
             System.out.print("Please enter option to proceed: ");
@@ -126,7 +126,7 @@ public class userController {
                     addWishlist();
                     break;
                 case 2:
-                    removeWishlist();
+                    displayWishList();
                     break;
                 case 3:
                     break;
@@ -244,8 +244,9 @@ public class userController {
         }
 
         System.out.println("Please enter The Item ID to proceed: ");
-        Integer ItemID = input.nextInt();
+
         try {
+            Integer ItemID = input.nextInt();
            item i =  itemService.searchById(ItemID);
            if (i.equals(null)){
 
@@ -254,6 +255,7 @@ public class userController {
            CurrentUser.getWishList().add(i);
             System.out.println(TEXT_GREEN + "\nSuccessfully Add." + TEXT_RESET);
         }catch (Exception e){
+            input.nextLine();
             System.out.println(TEXT_RED+"Add failed, The item be null, Please check the Item ID"+TEXT_RESET);
             System.out.println(e);
         }
