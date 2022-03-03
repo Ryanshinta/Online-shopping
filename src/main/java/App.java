@@ -9,6 +9,7 @@ public class App {
     public static void main(String[] args) {
         Scanner sc = new Scanner(System.in);
         user2Controller user = new user2Controller();
+        user.displayList();
         user.reset();
 
     }

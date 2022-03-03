@@ -75,6 +75,7 @@ public class user2Controller {
     }
 
     public void displayList() {
+        hardCodeUser();
         if (userList.isEmpty()) {
             System.out.println(TEXT_GREEN + "No user registered." + TEXT_RESET);
         } else {
