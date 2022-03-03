@@ -25,7 +25,7 @@ public class announcementController {
     }
 
     public void menuAnn() {
-        hardCode();
+        // hardCode();
         int selection = 0;
         while (selection != 5) {
             System.out.println("\n|~~~~~~~~~~~~~~~~~~~~|");
@@ -74,6 +74,22 @@ public class announcementController {
         boolean checkDuplicate = true;
 
         do {
+
+            if (annList.isEmpty()) {
+                System.out.println("No announcement in list\n");
+                System.out.print("Do you want to add in default announcement? (y/n)");
+
+                char check = input.next().charAt(0);
+
+                if (check == 'y') {
+                    hardCode();
+                    System.out.println("Added defauly announcement succesfully\n");
+                    break;
+                } else {
+                    break;
+                }
+            }
+
             System.out.print("\nEnter announcement: ");
             annContents = input.nextLine();
             // ** create a iterator to do searching */
