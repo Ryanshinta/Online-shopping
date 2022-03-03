@@ -1,6 +1,7 @@
 import java.util.Scanner;
 import controller.userController;
 import controller.announcementController;
+import controller.orderController;
 
 public class App {
 
@@ -10,7 +11,7 @@ public class App {
         // user.reset();
 
         announcementController ann = new announcementController();
-        ann.menuAnn();
+        ann.hardCode();
 
     }
 }

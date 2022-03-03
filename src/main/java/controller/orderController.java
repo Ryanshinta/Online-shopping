@@ -12,6 +12,8 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import service.*;
 import static util.textColor.*;
+import entity.Announcement;
+import service.announcementService;
 
 /**
  *
@@ -23,10 +25,12 @@ public class orderController {
     static ArrayList<OrderDetail> tempOrder = new ArrayList<>();
 
     ItemService itemSer = new ItemService();
+    announcementService<Announcement> annList = new announcementService<>();
 
     public void orderMain() {
         int selection = 0;
         boolean buffer = true;
+
         do {
             System.out.println("-------------------------------");
             System.out.println("-         Shopping Cart        -");
@@ -75,9 +79,12 @@ public class orderController {
         int selection = 0;
         int selection2 = 0;
 
-        System.out.println("----------------------------------------------------------------------------------------------------");
-        System.out.println("-                                          Products                                                -");
-        System.out.println("----------------------------------------------------------------------------------------------------");
+        System.out.println(
+                "----------------------------------------------------------------------------------------------------");
+        System.out.println(
+                "-                                          Products                                                -");
+        System.out.println(
+                "----------------------------------------------------------------------------------------------------");
 
         while (ya != false) {
             item tempItem = itemSer.searchById(i);
@@ -86,7 +93,8 @@ public class orderController {
                 System.out.println("| " + i + ". " + tempItem + "  |");
                 i++;
             } else {
-                System.out.println("----------------------------------------------------------------------------------------------------");
+                System.out.println(
+                        "----------------------------------------------------------------------------------------------------");
                 ya = false;
             }
         }
@@ -136,7 +144,8 @@ public class orderController {
                                 System.out.println(TEXT_GREEN + "\nRemove successfully form cart !!" + TEXT_RESET);
                                 buffer = true;
                             } else {
-                                System.out.println(TEXT_RED + "\nInvalid input, please enter 'y' or 'n'\n" + TEXT_RESET);
+                                System.out
+                                        .println(TEXT_RED + "\nInvalid input, please enter 'y' or 'n'\n" + TEXT_RESET);
                                 buffer = false;
                             }
                         } while (buffer == false);
@@ -189,7 +198,8 @@ public class orderController {
 
                         menuHeading();
                         System.out.println("| " + selection + ". | " + tempOrder.get(selection - 1).toString());
-                        System.out.println("|--------------------------------------------------------------------------------------------|");
+                        System.out.println(
+                                "|--------------------------------------------------------------------------------------------|");
 
                         do {
                             System.out.println("\nEnter the new quantity (-1 to exit): ");
@@ -201,7 +211,8 @@ public class orderController {
                                     buffer = true;
                                 } else if (selection2 < 1) {
                                     buffer = false;
-                                    System.out.println(TEXT_RED + "\nThe number entered is out of range !!\n" + TEXT_RESET);
+                                    System.out.println(
+                                            TEXT_RED + "\nThe number entered is out of range !!\n" + TEXT_RESET);
 
                                 } else {
                                     do {
@@ -215,7 +226,8 @@ public class orderController {
                                             System.out.println(TEXT_GREEN + "\nUpdate successfully  !!" + TEXT_RESET);
                                             buffer = true;
                                         } else {
-                                            System.out.println(TEXT_RED + "\nInvalid input, please enter 'y' or 'n'\n" + TEXT_RESET);
+                                            System.out.println(TEXT_RED + "\nInvalid input, please enter 'y' or 'n'\n"
+                                                    + TEXT_RESET);
                                             buffer = false;
                                         }
                                     } while (buffer == false);
@@ -240,7 +252,8 @@ public class orderController {
         menuHeading();
 
         if (tempOrder.isEmpty()) {
-            System.out.println("| -  |    -    |     -        |          -               |     -      |    -     |    -      |");
+            System.out.println(
+                    "| -  |    -    |     -        |          -               |     -      |    -     |    -      |");
         } else {
 
             for (int j = 0; j < tempOrder.size(); j++) {
@@ -248,8 +261,10 @@ public class orderController {
                 total = total.add(tempOrder.get(j).getSubtotal());
             }
         }
-        System.out.println("|--------------------------------------------------------------------------------------------|");
-        System.out.println("                                                                                 |  " + total + "  |");
+        System.out.println(
+                "|--------------------------------------------------------------------------------------------|");
+        System.out.println(
+                "                                                                                 |  " + total + "  |");
 
     }
 
@@ -259,10 +274,15 @@ public class orderController {
     }
 
     public void menuHeading() {
-        System.out.println("----------------------------------------------------------------------------------------------");
-        System.out.println("|                                    Shopping Cart                                           |");
-        System.out.println("|--------------------------------------------------------------------------------------------|");
-        System.out.println("| No | Item ID | Item Name    |     Description          | Price/unit | Quantity | Subtotal  |");
-        System.out.println("|--------------------------------------------------------------------------------------------|");
+        System.out.println(
+                "----------------------------------------------------------------------------------------------");
+        System.out.println(
+                "|                                    Shopping Cart                                           |");
+        System.out.println(
+                "|--------------------------------------------------------------------------------------------|");
+        System.out.println(
+                "| No | Item ID | Item Name    |     Description          | Price/unit | Quantity | Subtotal  |");
+        System.out.println(
+                "|--------------------------------------------------------------------------------------------|");
     }
 }
