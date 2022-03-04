@@ -1,16 +1,15 @@
 package controller;
 
-import java.util.Scanner;
-import static util.textColor.*;
-
-import entity.User;
-import dao.announcementMapper;
-import entity.Announcement;
-import service.announcementService;
-
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.Iterator;
+import java.util.Scanner;
+
+import entity.Announcement;
+import service.announcementService;
+import static util.textColor.TEXT_GREEN;
+import static util.textColor.TEXT_RED;
+import static util.textColor.TEXT_RESET;
 
 public class announcementController {
     private Scanner input = new Scanner(System.in);
@@ -22,6 +21,10 @@ public class announcementController {
             System.out.print("Please enter option to proceed: ");
             input.next();
         }
+    }
+
+    public void checkInputAnnContent(){
+       
     }
 
     public void menuAnn() {
@@ -57,7 +60,7 @@ public class announcementController {
                 case 5:
                     break;
                 default:
-                    System.out.println(TEXT_RED + "Error: Option Not Found, Plese Try Again." + TEXT_RESET);
+                    System.out.println(TEXT_RED + "Error: Option Not Found, Please Try Again." + TEXT_RESET);
 
             }
         }
@@ -76,22 +79,20 @@ public class announcementController {
         do {
 
             if (annList.isEmpty()) {
-                System.out.println("No announcement in list\n");
-                System.out.print("Do you want to add in default announcement? (y/n)");
+                System.out.println(TEXT_RED+"No announcement in list\n"+TEXT_RESET);
 
-                char check = input.next().charAt(0);
-
-                if (check == 'y') {
-                    hardCode();
-                    System.out.println("Added defauly announcement succesfully\n");
-                    break;
-                } else {
-                    break;
-                }
+                hardCode();
+                System.out.println(TEXT_GREEN + "Added default announcement succesfully\n"+TEXT_RESET);
+                
             }
 
             System.out.print("\nEnter announcement: ");
             annContents = input.nextLine();
+            while (annContents.equals("") || annContents.equals(" ")) {
+                System.out.println(TEXT_RED + "Error: Input cannot be empty\n" + TEXT_RESET);
+                System.out.print("Please enter again: ");
+                annContents = input.nextLine();
+            }
             // ** create a iterator to do searching */
             Iterator iterator = annList.getIterator();
 
@@ -102,7 +103,7 @@ public class announcementController {
 
                 // **add in the new hobby if there is no duplicate hobby name */
                 if (!(annElement.getAnnContents().equals(annContents))) {
-                    System.out.println("New Announcement added\n");
+                    System.out.println(TEXT_GREEN+"New Announcement added\n" + TEXT_RESET);
                     annList.add(new Announcement(annID, annContents, annCreatedDateTime));
                     checkDuplicate = false;
                     break;
@@ -134,9 +135,10 @@ public class announcementController {
             System.out.println(annList.toString());
 
         } else {
-            // testData();
-            System.out.println(annList.toString());
+            System.out.println(TEXT_RED+"No announcement in list\n"+TEXT_RESET);
 
+            hardCode();
+            System.out.println(TEXT_GREEN+"Added default announcement succesfully\n"+TEXT_RESET);
         }
         pressAnyKeyToContinue();
     }
@@ -153,4 +155,5 @@ public class announcementController {
         annList.add(new Announcement(1000, "New item coming out", "03/03/2022 17:54:50"));
 
     }
+    
 }
