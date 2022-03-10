@@ -39,7 +39,8 @@ public class orderController {
             System.out.println("-         2.Remove Item       -");
             System.out.println("-         3.Update Item       -");
             System.out.println("-         4.Display Cart      -");
-            System.out.println("-         5.End               -");
+            System.out.println("-         5.Make Payment      -");
+            System.out.println("-         6.End               -");
             System.out.println("-------------------------------");
 
             try {
@@ -59,16 +60,19 @@ public class orderController {
                 } else if (selection == 4) {
                     displayCart();
                     returnMenu();
-                } else if (selection != 5) {
+                }else if (selection == 5) {
+                    makePayment();
+                    returnMenu();
+                } else if (selection != 6) {
                     System.out.println(TEXT_RED + "Invalid input !!!\n" + TEXT_RESET);
                 }
             } catch (Exception e) {
                 System.out.println(TEXT_RED + "\nOnly enter integer !!!!\n" + TEXT_RESET);
-                selection = 6;
+                selection = 7;
                 scanner.nextLine();
 
             }
-        } while (selection != 5);
+        } while (selection != 6);
 
     }
 
@@ -243,6 +247,10 @@ public class orderController {
                 }
             } while (buffer == false);
         }
+    }
+
+    public void makePayment() {
+
     }
 
     public void displayCart() {
