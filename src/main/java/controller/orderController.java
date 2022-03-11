@@ -251,6 +251,14 @@ public class orderController {
 
     public void makePayment() {
 
+        displayCart();
+        
+        if (tempOrder.isEmpty()) {
+            System.out.println("Cannot proceed to payment method when the sopping cart is empty !!");
+        }else{
+            
+        }
+        
     }
 
     public void displayCart() {
