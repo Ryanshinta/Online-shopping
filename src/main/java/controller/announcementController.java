@@ -10,6 +10,7 @@ import service.announcementService;
 import static util.textColor.TEXT_GREEN;
 import static util.textColor.TEXT_RED;
 import static util.textColor.TEXT_RESET;
+import static util.textColor.TEXT_BLUE;
 
 public class announcementController {
     private Scanner input = new Scanner(System.in);
@@ -23,8 +24,8 @@ public class announcementController {
         }
     }
 
-    public void checkInputAnnContent(){
-       
+    public void checkInputAnnContent() {
+
     }
 
     public void menuAnn() {
@@ -35,10 +36,9 @@ public class announcementController {
             System.out.println("|        Menu        |");
             System.out.println("|~~~~~~~~~~~~~~~~~~~~|");
             System.out.println("|    1. Create       |");
-            System.out.println("|    2. Update       |");
-            System.out.println("|    3. Delete       |");
-            System.out.println("|    4. Display All  |");
-            System.out.println("|    5. Exit         |");
+            System.out.println("|    2. Delete       |");
+            System.out.println("|    3. Display All  |");
+            System.out.println("|    4. Exit         |");
             System.out.println("|~~~~~~~~~~~~~~~~~~~~|");
             System.out.print("Please enter option to proceed: ");
             characterInput();
@@ -49,15 +49,12 @@ public class announcementController {
                     createAnn();
                     break;
                 case 2:
-                    updateAnn();
-                    break;
-                case 3:
                     deleteAnn();
                     break;
-                case 4:
+                case 3:
                     displayAnn();
                     break;
-                case 5:
+                case 4:
                     break;
                 default:
                     System.out.println(TEXT_RED + "Error: Option Not Found, Please Try Again." + TEXT_RESET);
@@ -79,11 +76,11 @@ public class announcementController {
         do {
 
             if (annList.isEmpty()) {
-                System.out.println(TEXT_RED+"No announcement in list\n"+TEXT_RESET);
+                System.out.println(TEXT_RED + "No announcement in list\n" + TEXT_RESET);
 
                 hardCode();
-                System.out.println(TEXT_GREEN + "Added default announcement succesfully\n"+TEXT_RESET);
-                
+                System.out.println(TEXT_GREEN + "Added default announcement succesfully\n" + TEXT_RESET);
+
             }
 
             System.out.print("\nEnter announcement: ");
@@ -103,7 +100,7 @@ public class announcementController {
 
                 // **add in the new hobby if there is no duplicate hobby name */
                 if (!(annElement.getAnnContents().equals(annContents))) {
-                    System.out.println(TEXT_GREEN+"New Announcement added\n" + TEXT_RESET);
+                    System.out.println(TEXT_GREEN + "New Announcement added\n" + TEXT_RESET);
                     annList.add(new Announcement(annID, annContents, annCreatedDateTime));
                     checkDuplicate = false;
                     break;
@@ -123,6 +120,42 @@ public class announcementController {
     }
 
     public void deleteAnn() {
+        displayAnn();
+
+        int searchID;
+        // char confirmation;
+        System.out.print("Enter the Annoucement ID that you want to delete: ");
+        searchID = input.nextInt();
+
+        Iterator iterator = annList.getIterator();
+
+        while (iterator.hasNext()) {
+            Announcement ann = (Announcement) iterator.next();
+
+            while (!ann.getAnnID().equals(searchID)) {
+                System.out.println(TEXT_RED + "Annoucement ID does not exist" + TEXT_RESET);
+                System.out.print("Enter the Annoucement ID again: ");
+                searchID = input.nextInt();
+            }
+            // **able to delete when get the same ann ID */
+            if (ann.getAnnID().equals(searchID)) {
+                char confirmation;
+                System.out.print("Are you sure want to delete this accouncement " + searchID + " ?(y/n)");
+                confirmation = input.next().charAt(0);
+
+                // ** Confirmation stages */
+                if (confirmation == 'y' || confirmation == 'Y') {
+                    annList.remove(ann);
+                    System.out.println("Announcement " + searchID + " deleted\n");
+                    pressAnyKeyToContinue();
+                } else if (confirmation == 'n' || confirmation == 'N') {
+                    System.out.println("Do nothing\n");
+                }
+            }
+
+        }
+
+        pressAnyKeyToContinue();
 
     }
 
@@ -135,16 +168,16 @@ public class announcementController {
             System.out.println(annList.toString());
 
         } else {
-            System.out.println(TEXT_RED+"No announcement in list\n"+TEXT_RESET);
+            System.out.println(TEXT_RED + "No announcement in list\n" + TEXT_RESET);
 
             hardCode();
-            System.out.println(TEXT_GREEN+"Added default announcement succesfully\n"+TEXT_RESET);
+            System.out.println(TEXT_GREEN + "Added default announcement succesfully\n" + TEXT_RESET);
         }
         pressAnyKeyToContinue();
     }
 
     private static void pressAnyKeyToContinue() {
-        System.out.println("\nPress Any key to continue...");
+        System.out.println(TEXT_BLUE + "\nPress Any key to continue..." + TEXT_RESET);
         try {
             System.in.read();
         } catch (Exception e) {
@@ -155,5 +188,5 @@ public class announcementController {
         annList.add(new Announcement(1000, "New item coming out", "03/03/2022 17:54:50"));
 
     }
-    
+
 }
