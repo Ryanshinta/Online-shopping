@@ -32,6 +32,10 @@ public class userController {
         userList.newUser(new User("ghi", "789"));
         userList.newUser(new User("jkl", "012"));
     }
+    
+    public void hardCodeVoucher() {
+        
+    }
 
     public void characterInput() {
         while (!input.hasNextInt()) {
