@@ -270,7 +270,6 @@ public class userController {
             System.out.println(e);
         }
 
-
     }
 
     public void displayWishList() {
@@ -317,7 +316,6 @@ public class userController {
                       isDelete = true;
                       System.out.println(TEXT_GREEN + "\nSuccessfully remove." + TEXT_RESET);
                   }
-
                 }
                 if (!isDelete){
                     throw new RuntimeException();
