@@ -13,11 +13,11 @@ import service.UserService;
 
 import java.util.ArrayList;
 import java.util.Scanner;
+
 import static util.textColor.*;
 
 /**
- *
- * @author YoonEn,Ouyang(Wish List)
+ * @author YoonEn, Ouyang(Wish List)
  */
 public class userController {
 
@@ -32,9 +32,9 @@ public class userController {
         userList.newUser(new User("ghi", "789"));
         userList.newUser(new User("jkl", "012"));
     }
-    
+
     public void hardCodeVoucher() {
-        
+
     }
 
     public void characterInput() {
@@ -83,7 +83,7 @@ public class userController {
     public void userMenu2() {
         int selection = 0;
         while (selection != 2) {
-            System.out.println(TEXT_BLUE+"\nCurrent User:"+CurrentUser.getUsername()+TEXT_RESET);
+            System.out.println(TEXT_BLUE + "\nCurrent User:" + CurrentUser.getUsername() + TEXT_RESET);
             System.out.println("|~~~~~~~~~~~~~~~~~~~~|");
             System.out.println("|        Menu        |");
             System.out.println("|~~~~~~~~~~~~~~~~~~~~|");
@@ -107,10 +107,12 @@ public class userController {
             }
         }
     }
-    public void logout(){
+
+    public void logout() {
         CurrentUser = null;
-        System.out.println(TEXT_GREEN+"Log out successfully"+TEXT_RESET);
+        System.out.println(TEXT_GREEN + "Log out successfully" + TEXT_RESET);
     }
+
     public void wishlistMenu() {
         int selection = 0;
         while (selection != 3) {
@@ -118,8 +120,9 @@ public class userController {
             System.out.println("|     Manage Wishlist    |");
             System.out.println("|~~~~~~~~~~~~~~~~~~~~~~~~|");
             System.out.println("|    1. Add Product      |");
-            System.out.println("|    2. View My WishList |");
-            System.out.println("|    3. Exit             |");
+            System.out.println("|    2. Remove Product   |");
+            System.out.println("|    3. View My WishList |");
+            System.out.println("|    0. Exit             |");
             System.out.println("|~~~~~~~~~~~~~~~~~~~~~~~~|");
             System.out.print("Please enter option to proceed: ");
             characterInput();
@@ -130,9 +133,12 @@ public class userController {
                     addWishlist();
                     break;
                 case 2:
-                    displayWishList();
+                    removeWishlist();
                     break;
                 case 3:
+                    displayWishList();
+                    break;
+                case 0:
                     break;
                 default:
                     System.out.println(TEXT_RED + "Option Not Found, Plese Try Again." + TEXT_RESET);
@@ -175,7 +181,7 @@ public class userController {
                 if (!(password).equals(confirmpassword)) {
                     System.out.println(
                             TEXT_RED + "Error: Confirm password not same with password, pls reenter password again.\n"
-                            + TEXT_RESET);
+                                    + TEXT_RESET);
                 }
             } while (!(password).equals(confirmpassword));
             User s = new User(username, password);
@@ -239,49 +245,49 @@ public class userController {
     public void addWishlist() {
         System.out.println(TEXT_BLUE + "\n                Wish List                " + TEXT_RESET);
         System.out.println(
-                          "====================================================================\n"
+                "====================================================================\n"
                         + "ID       Product Name           Desc                       Price   \n"
                         + "====================================================================");
         for (item i : itemService.displayAllItem().values()) {
             System.out.printf("%-8d %-15s        %-25s  RM %.2f \n",
-                            i.getItemID(), i.getItemName() ,i.getItemDesc() ,i.getItemPrice());
+                    i.getItemID(), i.getItemName(), i.getItemDesc(), i.getItemPrice());
         }
 
         System.out.println("Please enter The Item ID to proceed: ");
 
         try {
             Integer ItemID = input.nextInt();
-           item i =  itemService.searchById(ItemID);
-           if (i.equals(null)){
+            item i = itemService.searchById(ItemID);
+            if (i.equals(null)) {
 
-               throw new NullPointerException();
-           }
-           CurrentUser.getWishList().add(i);
+                throw new NullPointerException();
+            }
+            CurrentUser.getWishList().add(i);
             System.out.println(TEXT_GREEN + "\nSuccessfully Add." + TEXT_RESET);
-        }catch (Exception e){
+        } catch (Exception e) {
             input.nextLine();
-            System.out.println(TEXT_RED+"Add failed, The item be null, Please check the Item ID"+TEXT_RESET);
+            System.out.println(TEXT_RED + "Add failed, The item be null, Please check the Item ID" + TEXT_RESET);
             System.out.println(e);
         }
 
 
-
     }
 
-    public void displayWishList(){
-        if (CurrentUser.getWishList().size() == 0){
+    public void displayWishList() {
+        if (CurrentUser.getWishList().size() == 0) {
             System.out.println(TEXT_GREEN + "No wish list found." + TEXT_RESET);
-        }else {
+        } else {
 
             System.out.println(TEXT_BLUE + "\n                Wish List                " + TEXT_RESET);
             System.out.println(
                     "====================================================================\n"
                             + "ID       Product Name           Desc                       Price   \n"
                             + "====================================================================");
-            for(int i = 0; i < CurrentUser.getWishList().size(); i++) {
+            for (int i = 0; i < CurrentUser.getWishList().size(); i++) {
+
                 item n = (item) CurrentUser.getWishList().get(i);
                 System.out.printf("%-8d %-15s        %-25s  RM %.2f \n",
-                        n.getItemID(),n.getItemName(),n.getItemDesc(),n.getItemPrice());
+                        n.getItemID(), n.getItemName(), n.getItemDesc(), n.getItemPrice());
             }
 
 
@@ -289,7 +295,45 @@ public class userController {
     }
 
     public void removeWishlist() {
+        boolean isDelete = false;
+        if (CurrentUser.getWishList().size() == 0) {
+            System.out.println(TEXT_GREEN + "No wish list found." + TEXT_RESET);
 
+        } else {
+            displayWishList();
+            System.out.println("Please enter The Item ID that you want to remove from Wish list: ");
+
+            try {
+                Integer ItemID = input.nextInt();
+                boolean i = CurrentUser.getWishList().contains(ItemID);
+                if (i) {
+
+                    throw new NullPointerException();
+                }
+                for (int t = 0; t < CurrentUser.getWishList().size(); t++){
+                  item q = (item) CurrentUser.getWishList().get(t);
+                  if (q.getItemID().equals(ItemID)){
+                      CurrentUser.getWishList().remove(t);
+                      isDelete = true;
+                      System.out.println(TEXT_GREEN + "\nSuccessfully remove." + TEXT_RESET);
+                  }
+
+                }
+                if (!isDelete){
+                    throw new RuntimeException();
+                }
+
+            } catch (NullPointerException e) {
+                input.nextLine();
+                System.out.println(TEXT_RED + "Add failed, The item be null, Please check the Item ID" + TEXT_RESET);
+                System.out.println(e);
+            }catch (RuntimeException e){
+                System.out.println(TEXT_RED + "Remove failed, The item be null, Please check the Item ID" + TEXT_RESET);
+                System.out.println(e);
+            }catch (Exception e){
+                System.out.println(e);
+            }
+        }
     }
 
     public void reset() {
@@ -325,7 +369,7 @@ public class userController {
                 if (!(password).equals(confirmpassword)) {
                     System.out.println(
                             TEXT_RED + "Error: Confirm password not same with password, pls reenter password again.\n"
-                            + TEXT_RESET);
+                                    + TEXT_RESET);
                 }
             } while (!(password).equals(confirmpassword));
 
