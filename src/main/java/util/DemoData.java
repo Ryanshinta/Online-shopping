@@ -1,8 +1,11 @@
 package util;
 
 
+import dao.userMapper;
+import entity.User;
 import entity.item;
 import service.ItemService;
+import service.UserService;
 
 import java.math.BigDecimal;
 
@@ -22,5 +25,12 @@ public class DemoData {
         itemService.newItem(Item0004);
         itemService.newItem(Item0005);
         itemService.newItem(Item0006);
+
+        userMapper userList = new UserService();
+
+        userList.newUser(new User("abc", "123"));
+        userList.newUser(new User("def", "456"));
+        userList.newUser(new User("ghi", "789"));
+        userList.newUser(new User("jkl", "012"));
     }
 }

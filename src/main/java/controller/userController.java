@@ -21,17 +21,11 @@ import static util.textColor.*;
  */
 public class userController {
 
-    private userMapper userList = new UserService();
+    userMapper userList = new UserService();
     private ItemService itemService = new ItemService();
     private Scanner input = new Scanner(System.in);
     private User CurrentUser = null;
 
-    public void hardCodeUser() {
-        userList.newUser(new User("abc", "123"));
-        userList.newUser(new User("def", "456"));
-        userList.newUser(new User("ghi", "789"));
-        userList.newUser(new User("jkl", "012"));
-    }
 
     public void hardCodeVoucher() {
 
@@ -46,7 +40,6 @@ public class userController {
     }
 
     public void userMenu() {
-        hardCodeUser();
         int selection = 0;
         while (selection != 4) {
             System.out.println("\n|~~~~~~~~~~~~~~~~~~~~|");
@@ -336,7 +329,6 @@ public class userController {
 
     public void reset() {
         int n = 0;
-        hardCodeUser();
 
         System.out.println("         Reset password         ");
         System.out.println("--------------------------------");
