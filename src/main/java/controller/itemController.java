@@ -88,7 +88,7 @@ public class itemController {
                 scanner.nextLine();
                 String i = scanner.nextLine();
                 if (i.equals("y") || i.equals("Y")) {
-                    itemService.newItem(new item(itemName, itemDesc, BigDecimal.valueOf(Double.valueOf(itemPrice))));
+                    itemService.newItem(new item(itemName, itemDesc,BigDecimal.valueOf( Double.valueOf(itemPrice))));
                     System.out.println(TEXT_GREEN + "Item add success" + TEXT_RESET);
                     break;
                 } else if (i.equals('n') || i.equals("N")) {

@@ -26,45 +26,7 @@ public class testItemCRUD {
         itemService.newItem(Item0004);
         itemService.newItem(Item0005);
         itemService.newItem(Item0006);
-        //Display All item
-/*
-        for (item i:itemService.displayAllItem().values()) {
-            System.out.println(i.getItemID());
-        }
 
-*/
-
-
-
-//        String str1 = "QWER";
-//        String str2 = "1234";
-//        String str3 = "12.34";
-//
-//        System.out.println(StringUtils.isNumeric(str1));
-//        System.out.println(StringUtils.isNumeric(str2));
-//        System.out.println(StringUtils.isNumeric(str3));
-//
-//        // search item
-//        item searchItem1 = itemService.searchById(1);
-//        item searchItem2 = itemService.searchById(2);
-//        try {
-//            System.out.println(searchItem1.toString()+"\n"+searchItem2.toString());
-//        }catch (NullPointerException e){
-//            System.out.println(e);
-//        }
-//
-//        // update item
-//        Item0002.setItemPrice(BigDecimal.valueOf(22.22));
-//
-//        item searchItem3 = itemService.searchById(0002);
-//        System.out.println(searchItem3.toString());
-//        // delete item
-//        item deleteItem = itemService.searchById(0002);
-//        if (deleteItem == null){
-//            System.out.println(TEXT_RED+"ID 0002 already deleted"+TEXT_RESET);
-//        }else {
-//            System.out.println(deleteItem.toString());
-//        }
 
         itemController itemController = new itemController();
         itemController.menu();

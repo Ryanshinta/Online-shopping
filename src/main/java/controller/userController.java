@@ -24,7 +24,7 @@ public class userController {
     userMapper userList = new UserService();
     private ItemService itemService = new ItemService();
     private Scanner input = new Scanner(System.in);
-    private User CurrentUser = null;
+    public static User CurrentUser = null;
 
 
     public void hardCodeVoucher() {
