@@ -25,13 +25,14 @@ import java.util.regex.Pattern;
  * @author Gan
  */
 public class orderController {
-    
+
     Scanner scanner = new Scanner(System.in);
     static ArrayList<OrderDetail> tempOrder = new ArrayList<>();
-
+    BigDecimal subtotal = BigDecimal.valueOf(0);
     ItemService itemSer = new ItemService();
     announcementService<Announcement> annList = new announcementService<>();
-    public static orderMapper<Order> order = new orderService<Order>();
+    public static orderMapper<Order> orderQueue = new orderService<Order>();
+    Order order = new Order();
 
     private voucherMapper voucherList = new VoucherService();
 
@@ -71,10 +72,10 @@ public class orderController {
                 } else if (selection == 4) {
                     displayCart();
                     returnMenu();
-                }else if (selection == 5) {
+                } else if (selection == 5) {
                     makePayment();
                     returnMenu();
-                }else if (selection == 6) {
+                } else if (selection == 6) {
                     viewVoucher();
                     returnMenu();
                 } else if (selection != 7) {
@@ -264,81 +265,166 @@ public class orderController {
     }
 
     public void makePayment() {
-  int selection = 0;
+        int selection = 0;
         boolean buffer = true;
         String regex = null;
         String str = null;
         String x = null;
+        String y = null;
+        BigDecimal total = BigDecimal.valueOf(0);
+        BigDecimal deliveryFee = BigDecimal.valueOf(4);
+        int selection2 = 0;
+        int discount = 0;
+        BigDecimal discount2 = BigDecimal.valueOf(0);
 
         displayCart();
 
         if (tempOrder.isEmpty()) {
             System.out.println("Cannot proceed to payment method when the sopping cart is empty !!");
         } else {
+            total = total.add(deliveryFee);
+            total = total.add(subtotal);
             do {
-                buffer = true;
-                System.out.println("Select payment method :");
-                System.out.println("1. Visa");
-                System.out.println("2. MasterCard");
-                try {
-                    selection = scanner.nextInt();
-                    scanner.nextLine();
-                } catch (Exception e) {
-                    System.out.println(TEXT_RED + "\nOnly enter integer !!!!\n" + TEXT_RESET);
-                    buffer = false;
-                    scanner.nextLine();
 
+                System.out.println(
+                        "                                                                  Delivery Fee   |  " + deliveryFee + "  ");
+                System.out.println(
+                        "                                                                         Total   |  " + total + "  ");
+                buffer = true;
+
+                do {
+                    System.out.println("Use a Voucher ? (y/n) : ");
+                    y = scanner.nextLine();
+                    if ("N".equals(y.toUpperCase())) {
+                        buffer = true;
+                    } else if ("Y".equals(y.toUpperCase())) {
+                        buffer = true;
+                    } else {
+                        System.out.println(TEXT_RED + "\nInvalid input, please enter 'y' or 'n'\n"
+                                + TEXT_RESET);
+                        buffer = false;
+                    }
+                } while (buffer == false);
+
+                if (voucherList.totalEntry() != 0 && "Y".equals(y.toUpperCase())) {
+                    viewVoucher();
+                    do {
+                        System.out.println("Select voucher to use (exp: 1) : ");
+                        try {
+                            selection2 = scanner.nextInt();
+                            scanner.nextLine();
+                            if (selection2 < 1 || selection2 > voucherList.totalEntry()) {
+                                System.out.println("Input out of range !");
+                                buffer = false;
+                            } else {
+                                buffer = true;
+                                if (voucherList.getEntry(selection2-1).getDeducOrder() != 0) {
+                                    discount = voucherList.getEntry(selection2-1).getDeducOrder();
+                                } else {
+                                    discount = voucherList.getEntry(selection2-1).getDeducDelivery();
+                                }
+                            }
+                        } catch (Exception e) {
+                            System.out.println(TEXT_RED + "\nOnly enter integer !!!!\n" + TEXT_RESET);
+                            buffer = false;
+                            scanner.nextLine();
+                        }
+                    } while (buffer == false);
+                } else {
+                    System.out.println("No Available Voucher");
                 }
+
+                displayCart();
+                System.out.println(
+                        "                                                                  Delivery Fee   |  " + deliveryFee + "  ");
+                if (discount != 0) {
+                    System.out.println(
+                            "                                                                       Voucher   |  (-)" + discount + "  ");
+                    discount2 = discount2.valueOf(discount);
+                    total = total.subtract(discount2);
+                }
+                System.out.println(
+                        "                                                                         Total   |  " + total + "  ");
+
+                do {
+                    System.out.println("Select payment method :");
+                    System.out.println("1. Visa");
+                    System.out.println("2. MasterCard");
+                    try {
+                        selection = scanner.nextInt();
+                        scanner.nextLine();
+
+                        if (selection == 1 || selection == 2) {
+                            buffer = true;
+                        } else {
+                            System.out.println(TEXT_RED + "\nInput Out of range !!!!\n" + TEXT_RESET);
+                            buffer = false;
+                        }
+                    } catch (Exception e) {
+                        System.out.println(TEXT_RED + "\nOnly enter integer !!!!\n" + TEXT_RESET);
+                        buffer = false;
+                        scanner.nextLine();
+
+                    }
+                } while (buffer == false);
 
                 switch (selection) {
                     case 1:
+                        //cannot work
                         regex = "^4[0-9]{12}(?:[0-9]{3})?$";
 
                     case 2:
                         regex = "^5[1-5][0-9]{14}|^(222[1-9]|22[3-9]\\d|2[3-6]\\d{2}|27[0-1]\\d|2720)[0-9]{12}$";
-                    default:
-                        buffer = false;
                 }
 
                 if (buffer == true) {
-                    System.out.println("Enter your credit card Number :");
-                    str = scanner.nextLine();
+                    do {
+                        System.out.println("Enter your credit card Number :");
+                        str = scanner.nextLine();
 
-                    Pattern p = Pattern.compile(regex);
-                    Matcher m = p.matcher(str);
+                        Pattern p = Pattern.compile(regex);
+                        Matcher m = p.matcher(str);
 
-                    if (!m.matches() && selection == 1) {
-                        System.out.println("Visa should be start with 4 and a 13 or 16 digits length");
-                    } else if (!m.matches() && selection == 2) {
-                        System.out.println("Mastercard should be start with 51 to 53 and a 16 digits length");
-                    } else {
-                        System.out.println("Confirm Payment ? (y/n) : ");
-                        x = scanner.nextLine();
-
-                        if ("N".equals(x.toUpperCase())) {
-                            buffer = true;
-                        } else if ("Y".equals(x.toUpperCase())) {
-                            tempOrder.get(selection - 1).setQuantity(selection2);
-                            System.out.println(TEXT_GREEN + "\nUpdate successfully  !!" + TEXT_RESET);
-                            buffer = true;
-                        } else {
-                            System.out.println(TEXT_RED + "\nInvalid input, please enter 'y' or 'n'\n"
-                                    + TEXT_RESET);
+                        if (m.matches() == false && selection == 1) {
+                            System.out.println("Visa should be start with 4 and a 13 or 16 digits length");
                             buffer = false;
+                        } else if (m.matches() == false && selection == 2) {
+                            System.out.println("Mastercard should be start with 51 to 53 and a 16 digits length");
+                            buffer = false;
+                        } else {
+                            System.out.println("Confirm Payment ? (y/n) : ");
+                            x = scanner.nextLine();
+
+                            if ("N".equals(x.toUpperCase())) {
+                                buffer = true;
+                            } else if ("Y".equals(x.toUpperCase())) {
+                                for (int i = 0; i < tempOrder.size(); i++) {
+                                    order.setOrderDetail(tempOrder);
+                                }
+                                orderQueue.enqueue(order);
+                                System.out.println(TEXT_GREEN + "\nOrder Placed successfully  !!" + TEXT_RESET);
+                                tempOrder.clear();
+                                buffer = true;
+                            } else {
+                                System.out.println(TEXT_RED + "\nInvalid input, please enter 'y' or 'n'\n"
+                                        + TEXT_RESET);
+                                buffer = false;
+                            }
                         }
-                    }
+                    } while (buffer == false);
                 }
 
             } while (buffer == false);
 
         }
-        
+
     }
 
     public void displayCart() {
         int counter = 0;
         String selection = "";
-        BigDecimal total = BigDecimal.valueOf(0);
+        BigDecimal subtotal2 = BigDecimal.valueOf(0);
+
         menuHeading();
 
         if (tempOrder.isEmpty()) {
@@ -348,14 +434,14 @@ public class orderController {
 
             for (int j = 0; j < tempOrder.size(); j++) {
                 System.out.println("| " + ++counter + ". | " + tempOrder.get(j).toString());
-                total = total.add(tempOrder.get(j).getSubtotal());
+                subtotal2 = subtotal2.add(tempOrder.get(j).getSubtotal());
             }
         }
         System.out.println(
                 "|--------------------------------------------------------------------------------------------|");
         System.out.println(
-                "                                                                                 |  " + total + "  |");
-
+                "                                                                      subtotal   |  " + subtotal2 + "  |");
+        subtotal = subtotal2;
     }
 
     public void returnMenu() {
@@ -375,33 +461,35 @@ public class orderController {
         System.out.println(
                 "|--------------------------------------------------------------------------------------------|");
     }
-    
+
     public void hardCodeVoucher() {
-        voucherList.newVoucher(new Voucher("RM5 off", "31.01.2022", "Enjoy RM5 off on your order."));
-        voucherList.newVoucher(new Voucher("RM10 off", "28.02.2022", "Enjoy RM10 off on your order."));
-        voucherList.newVoucher(new Voucher("Free shipping", "15.03.2022", "Enjoy RM4 off on shipping fee."));
-        voucherList.newVoucher(new Voucher("Free shipping", "16.03.2022", "Enjoy RM4 off on shipping fee."));
-        voucherList.newVoucher(new Voucher("Free shipping", "31.05.2022", "Enjoy RM4 off on shipping fee."));
+        voucherList.newVoucher(new Voucher("RM5 off", "31.01.2022", "Enjoy RM5 off on your order.", 5, 0));
+        voucherList.newVoucher(new Voucher("RM10 off", "28.02.2022", "Enjoy RM10 off on your order.", 10, 0));
+        voucherList.newVoucher(new Voucher("Free shipping", "15.03.2022", "Enjoy RM4 off on shipping fee.", 0, 4));
+        voucherList.newVoucher(new Voucher("Free shipping", "16.03.2022", "Enjoy RM4 off on shipping fee.", 0, 4));
+        voucherList.newVoucher(new Voucher("Free shipping", "31.05.2022", "Enjoy RM4 off on shipping fee.", 0, 4));
+
     }
-    
+
     public void validVoucher() {
-        
+
         Calendar cal = Calendar.getInstance();
         SimpleDateFormat format = new SimpleDateFormat("dd-MM-yyyy");
-        Date today = new Date();  
+        Date today = new Date();
         Date todayDate = new Date();
         try {
             todayDate = format.parse(format.format(today));
         } catch (ParseException e) {
-                
+
         }
         do {
             Voucher v = voucherList.validVoucher(todayDate);
             voucherList.deleteVoucher(v);
         } while (voucherList.validVoucher(todayDate) != null);
     }
-    
+
     public void viewVoucher() {
+
         if (voucherList.displayAllVoucher() == null) {
             System.out.println(TEXT_BLUE + "No voucher found." + TEXT_RESET);
         } else {
