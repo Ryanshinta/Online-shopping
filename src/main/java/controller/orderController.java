@@ -8,6 +8,7 @@ package controller;
 import dao.voucherMapper;
 import entity.*;
 import java.math.BigDecimal;
+import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Scanner;
 import java.util.ArrayList;
@@ -22,10 +23,6 @@ import static util.textColor.*;
  * @author Gan
  */
 public class orderController {
-
-    Calendar cal = Calendar.getInstance();
-    SimpleDateFormat format = new SimpleDateFormat("dd-MM-yyyy");
-    Date todayDate = new Date();  
     
     Scanner scanner = new Scanner(System.in);
     static ArrayList<OrderDetail> tempOrder = new ArrayList<>();
@@ -325,6 +322,16 @@ public class orderController {
     }
     
     public void validVoucher() {
+        
+        Calendar cal = Calendar.getInstance();
+        SimpleDateFormat format = new SimpleDateFormat("dd-MM-yyyy");
+        Date today = new Date();  
+        Date todayDate = new Date();
+        try {
+            todayDate = format.parse(format.format(today));
+        } catch (ParseException e) {
+                
+        }
         do {
             Voucher v = voucherList.validVoucher(todayDate);
             voucherList.deleteVoucher(v);
