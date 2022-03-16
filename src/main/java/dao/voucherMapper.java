@@ -17,7 +17,7 @@ public interface voucherMapper {
 
     boolean deleteVoucher(Voucher v);
     
-    void validVoucher(Date date);
+    Voucher validVoucher(Date date);
 
     String displayAllVoucher();
 

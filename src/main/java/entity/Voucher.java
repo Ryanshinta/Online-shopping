@@ -1,7 +1,5 @@
 package entity;
 
-import java.util.Date;
-
 public class Voucher {
     private String name;
     private String expired;

@@ -317,13 +317,18 @@ public class orderController {
     }
     
     public void hardCodeVoucher() {
-        voucherList.newVoucher(new Voucher("RM5 off", "28.02.2022", "Enjoy RM5 off on your order."));
-        voucherList.newVoucher(new Voucher("RM10 off", "31.03.2022", "Enjoy RM10 off on your order."));
-        voucherList.newVoucher(new Voucher("Free shipping", "31.03.2022", "Enjoy RM4 off on shipping fee."));
+        voucherList.newVoucher(new Voucher("RM5 off", "31.01.2022", "Enjoy RM5 off on your order."));
+        voucherList.newVoucher(new Voucher("RM10 off", "28.02.2022", "Enjoy RM10 off on your order."));
+        voucherList.newVoucher(new Voucher("Free shipping", "15.03.2022", "Enjoy RM4 off on shipping fee."));
+        voucherList.newVoucher(new Voucher("Free shipping", "16.03.2022", "Enjoy RM4 off on shipping fee."));
+        voucherList.newVoucher(new Voucher("Free shipping", "31.05.2022", "Enjoy RM4 off on shipping fee."));
     }
     
     public void validVoucher() {
-        voucherList.validVoucher(todayDate);
+        do {
+            Voucher v = voucherList.validVoucher(todayDate);
+            voucherList.deleteVoucher(v);
+        } while (voucherList.validVoucher(todayDate) != null);
     }
     
     public void viewVoucher() {

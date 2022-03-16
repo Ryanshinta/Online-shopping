@@ -48,23 +48,23 @@ public class VoucherService implements voucherMapper {
     }
 
     @Override
-    public void validVoucher(Date date) {
+    public Voucher validVoucher(Date date) {
+        
         for(Voucher voucher:VoucherArray) {
             String vdate = voucher.getExpired();
-            DateFormat dateFormat = new SimpleDateFormat("dd-MM-yyyy");
+            DateFormat dateFormat = new SimpleDateFormat("dd.MM.yyyy");
          
             Date validDate;
-            String s;
              
             try {
                 validDate = dateFormat.parse(vdate);  
                 if(validDate.before(date)) {
-                    s = "h";
+                    return voucher;
                 }
             } catch (ParseException e) {
                 
             }
-            System.out.print("s");
         }
+        return null;
     }
 }
