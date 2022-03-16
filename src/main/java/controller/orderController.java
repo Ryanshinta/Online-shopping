@@ -5,7 +5,7 @@
  */
 package controller;
 
-import dao.voucherMapper;
+import dao.*;
 import entity.*;
 import java.math.BigDecimal;
 import java.text.ParseException;
@@ -17,6 +17,8 @@ import java.util.Date;
 import java.util.HashMap;
 import service.*;
 import static util.textColor.*;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 /**
  *
@@ -29,7 +31,8 @@ public class orderController {
 
     ItemService itemSer = new ItemService();
     announcementService<Announcement> annList = new announcementService<>();
-    
+    public static orderMapper<Order> order = new orderService<Order>();
+
     private voucherMapper voucherList = new VoucherService();
 
     public void orderMain() {
@@ -261,13 +264,73 @@ public class orderController {
     }
 
     public void makePayment() {
+  int selection = 0;
+        boolean buffer = true;
+        String regex = null;
+        String str = null;
+        String x = null;
 
         displayCart();
-        
+
         if (tempOrder.isEmpty()) {
             System.out.println("Cannot proceed to payment method when the sopping cart is empty !!");
-        }else{
-            
+        } else {
+            do {
+                buffer = true;
+                System.out.println("Select payment method :");
+                System.out.println("1. Visa");
+                System.out.println("2. MasterCard");
+                try {
+                    selection = scanner.nextInt();
+                    scanner.nextLine();
+                } catch (Exception e) {
+                    System.out.println(TEXT_RED + "\nOnly enter integer !!!!\n" + TEXT_RESET);
+                    buffer = false;
+                    scanner.nextLine();
+
+                }
+
+                switch (selection) {
+                    case 1:
+                        regex = "^4[0-9]{12}(?:[0-9]{3})?$";
+
+                    case 2:
+                        regex = "^5[1-5][0-9]{14}|^(222[1-9]|22[3-9]\\d|2[3-6]\\d{2}|27[0-1]\\d|2720)[0-9]{12}$";
+                    default:
+                        buffer = false;
+                }
+
+                if (buffer == true) {
+                    System.out.println("Enter your credit card Number :");
+                    str = scanner.nextLine();
+
+                    Pattern p = Pattern.compile(regex);
+                    Matcher m = p.matcher(str);
+
+                    if (!m.matches() && selection == 1) {
+                        System.out.println("Visa should be start with 4 and a 13 or 16 digits length");
+                    } else if (!m.matches() && selection == 2) {
+                        System.out.println("Mastercard should be start with 51 to 53 and a 16 digits length");
+                    } else {
+                        System.out.println("Confirm Payment ? (y/n) : ");
+                        x = scanner.nextLine();
+
+                        if ("N".equals(x.toUpperCase())) {
+                            buffer = true;
+                        } else if ("Y".equals(x.toUpperCase())) {
+                            tempOrder.get(selection - 1).setQuantity(selection2);
+                            System.out.println(TEXT_GREEN + "\nUpdate successfully  !!" + TEXT_RESET);
+                            buffer = true;
+                        } else {
+                            System.out.println(TEXT_RED + "\nInvalid input, please enter 'y' or 'n'\n"
+                                    + TEXT_RESET);
+                            buffer = false;
+                        }
+                    }
+                }
+
+            } while (buffer == false);
+
         }
         
     }
