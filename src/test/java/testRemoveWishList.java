@@ -19,22 +19,29 @@ public class testRemoveWishList {
 
     @Before
     public void setup(){
-
         u1 = new User("QQQ","123");
         i1 = new item("Test91","TestItem", BigDecimal.valueOf(12.1));
         userService.newUser(u1);
         itemService.newItem(i1);
         userTest = userService.searchByUsername("QQQ");
-        userTest.getWishList().add(i1);
     }
-
-
 
     @Test
     public void testRemoveFromWishList(){
+        userTest.getWishList().add(i1);
         assertTrue(userTest.getWishList().remove(0) != null);
+    }
 
 
+    @Test
+    public void testNewItemForWishList(){
+        assertTrue(userTest.getWishList().add(i1));
+    }
+
+
+    @Test(expected = NullPointerException.class)
+    public void testIllegalData(){
+        assertNull(u2.getWishList());
     }
 
 }

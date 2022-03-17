@@ -22,6 +22,9 @@ public class item {
         this.itemPrice = itemPrice;
         isDisable = false;
     }
+    public item(){
+
+    }
 
     public Integer getItemID() {
         return itemID;
