@@ -20,7 +20,6 @@ public class App {
         DemoData demoData = new DemoData();
         demoData.AddDemoData();
 
-        // sds
         while (true) {
             int selection = 0;
             String Logo = """
