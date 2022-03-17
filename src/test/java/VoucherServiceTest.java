@@ -17,9 +17,9 @@ public class VoucherServiceTest {
     
     @Before
     public void setUp() {
-        v1 = new Voucher("RM5 off", "31.01.2022", "Enjoy RM5 off on your order.");
-        v2 = new Voucher("RM10 off", "20.03.2022", "Enjoy RM10 off on your order.");
-        v3 = new Voucher("Free shipping", "31.03.2022", "Enjoy RM4 off on shipping fee.");
+        v1 = new Voucher("RM5 off", "31.01.2022", "Enjoy RM5 off on your order.", 5, 0);
+        v2 = new Voucher("RM10 off", "20.03.2022", "Enjoy RM10 off on your order.", 10, 0);
+        v3 = new Voucher("Free shipping", "31.03.2022", "Enjoy RM4 off on shipping fee.", 0, 4);
         voucherService.newVoucher(v1);
         voucherService.newVoucher(v2);
         voucherService.newVoucher(v3);
@@ -28,7 +28,7 @@ public class VoucherServiceTest {
     @Test
     public void testNewVoucher() {
         System.out.println("newVoucher");
-        Voucher v = new Voucher("RM15 off", "31.12.2022", "Enjoy RM15 off on your order.");
+        Voucher v = new Voucher("RM15 off", "31.12.2022", "Enjoy RM15 off on your order.", 15, 0);
         VoucherService instance = new VoucherService();
         boolean expResult = true;
         boolean result = instance.newVoucher(v);
