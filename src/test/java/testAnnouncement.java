@@ -41,7 +41,7 @@ public class testAnnouncement {
         while (iterator.hasNext()) {
             Announcement ann = (Announcement) iterator.next();
             while (ann.getAnnID().equals(2222)) {
-                result = true;
+                // result = true;
                 break;
             }
         }
