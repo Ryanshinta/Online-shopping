@@ -11,6 +11,7 @@ import static util.textColor.*;
 
 public class App {
     private Scanner input = new Scanner(System.in);
+
     public static void main(String[] args) {
         announcementController announcementController = new announcementController();
         itemController itemController = new itemController();
@@ -19,20 +20,20 @@ public class App {
         DemoData demoData = new DemoData();
         demoData.AddDemoData();
 
-
-        while (true){
+        // sds
+        while (true) {
             int selection = 0;
-            String Logo= """
-                                                                 \s
-                ,--.   ,--.        ,---.  ,--.                   \s
-                |  |   |  | ,---. '   .-' |  ,---.  ,---.  ,---. \s
-                |  |.'.|  || .-. :`.  `-. |  .-.  || .-. || .-. |\s
-                |   ,'.   |\\   --..-'    ||  | |  |' '-' '| '-' '\s
-                '--'   '--' `----'`-----' `--' `--' `---' |  |-' \s
-                                                          `--'   \s
-                """;
-            System.out.printf(TEXT_CYAN+Logo+TEXT_RESET);
-            System.out.println(TEXT_YELLOW+"Welcome WeShop!"+TEXT_RESET);
+            String Logo = """
+                                                                     \s
+                    ,--.   ,--.        ,---.  ,--.                   \s
+                    |  |   |  | ,---. '   .-' |  ,---.  ,---.  ,---. \s
+                    |  |.'.|  || .-. :`.  `-. |  .-.  || .-. || .-. |\s
+                    |   ,'.   |\\   --..-'    ||  | |  |' '-' '| '-' '\s
+                    '--'   '--' `----'`-----' `--' `--' `---' |  |-' \s
+                                                              `--'   \s
+                    """;
+            System.out.printf(TEXT_CYAN + Logo + TEXT_RESET);
+            System.out.println(TEXT_YELLOW + "Welcome WeShop!" + TEXT_RESET);
             System.out.println("\n|~~~~~~~~~~~~~~~~~~~~~~|");
             System.out.println("|          Menu          |");
             System.out.println("|~~~~~~~~~~~~~~~~~~~~~~~~|");
