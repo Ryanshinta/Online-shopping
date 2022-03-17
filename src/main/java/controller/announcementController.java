@@ -131,12 +131,8 @@ public class announcementController {
 
         while (iterator.hasNext()) {
             Announcement ann = (Announcement) iterator.next();
+            System.out.println(ann);
 
-            while (!ann.getAnnID().equals(searchID)) {
-                System.out.println(TEXT_RED + "Annoucement ID does not exist" + TEXT_RESET);
-                System.out.print("Enter the Annoucement ID again: ");
-                searchID = input.nextInt();
-            }
             // **able to delete when get the same ann ID */
             if (ann.getAnnID().equals(searchID)) {
                 char confirmation;
@@ -146,10 +142,10 @@ public class announcementController {
                 // ** Confirmation stages */
                 if (confirmation == 'y' || confirmation == 'Y') {
                     annList.remove(ann);
-                    System.out.println("Announcement " + searchID + " deleted\n");
+                    System.out.println(TEXT_GREEN + "Announcement " + searchID + " deleted\n" + TEXT_RESET);
                     pressAnyKeyToContinue();
                 } else if (confirmation == 'n' || confirmation == 'N') {
-                    System.out.println("Do nothing\n");
+                    System.out.println(TEXT_GREEN + "Do nothing\n" + TEXT_RESET);
                 }
             }
 
