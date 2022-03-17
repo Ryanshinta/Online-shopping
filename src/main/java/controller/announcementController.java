@@ -131,7 +131,7 @@ public class announcementController {
 
         while (iterator.hasNext()) {
             Announcement ann = (Announcement) iterator.next();
-            System.out.println(ann);
+            // System.out.println(ann);
 
             // **able to delete when get the same ann ID */
             if (ann.getAnnID().equals(searchID)) {
