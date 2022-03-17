@@ -1,9 +1,9 @@
 import java.util.Scanner;
 
 import controller.announcementController;
-import controller.itemController;
-import controller.orderController;
-import controller.userController;
+// import controller.itemController;
+// import controller.orderController;
+// import controller.userController;
 import util.DemoData;
 
 import static controller.userController.CurrentUser;
@@ -14,9 +14,9 @@ public class App {
 
     public static void main(String[] args) {
         announcementController announcementController = new announcementController();
-        itemController itemController = new itemController();
-        userController userController = new userController();
-        orderController orderController = new orderController();
+        // itemController itemController = new itemController();
+        // userController userController = new userController();
+        // orderController orderController = new orderController();
         DemoData demoData = new DemoData();
         demoData.AddDemoData();
 
@@ -52,13 +52,13 @@ public class App {
                     announcementController.menuAnn();
                     break;
                 case 2:
-                    userController.userMenu();
+                    // userController.userMenu();
                     break;
                 case 3:
-                    itemController.menu();
+                    // itemController.menu();
                     break;
                 case 4:
-                    orderController.orderMain();
+                    // orderController.orderMain();
                     break;
                 default:
                     System.out.println(TEXT_RED + "Error: Option Not Found, Please Try Again." + TEXT_RESET);
