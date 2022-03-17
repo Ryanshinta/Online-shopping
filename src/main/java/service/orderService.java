@@ -13,7 +13,7 @@ public class orderService<T> implements orderMapper<T> {
         lastNode = null;
     }
     @Override
-    public void enqueue(T newEntry) {
+    public boolean enqueue(T newEntry) {
         Node newNode = new Node(newEntry, null);
         if (isEmpty()) {  // going to insert the very first node to the queue
             newNode.next = newNode;
@@ -22,8 +22,10 @@ public class orderService<T> implements orderMapper<T> {
             lastNode.next = newNode;
         }
         lastNode = newNode;
+        return true;
 
     }
+    
     @Override
     public T dequeue() {
         T topValue = getFront();
@@ -41,6 +43,7 @@ public class orderService<T> implements orderMapper<T> {
 
         return topValue;
     }
+    
     @Override
     public T getFront() {
         T topValue = null;
@@ -86,24 +89,6 @@ public class orderService<T> implements orderMapper<T> {
         return output;
     }
     @Override
-    public void swap(int index1, int index2) {
-        Node curNode1 = lastNode;
-        Node curNode2 = lastNode;
-        T temp = null;
-
-        for (int i = 0; i < index1; i++) {
-            curNode1 = curNode1.next;
-        }
-        for (int i = 0; i < index2; i++) {
-            curNode2 = curNode2.next;
-        }
-
-        temp = curNode1.data;
-        curNode1.data = curNode2.data;
-        curNode2.data = temp;
-
-    }
-    @Override
     public void update(T newEntry, int index) {
         Node curNode = lastNode;
 
@@ -112,54 +97,6 @@ public class orderService<T> implements orderMapper<T> {
         }
 
         curNode.data = newEntry;
-    }
-    @Override
-    public boolean bringFront(int index) {
-        Node beforeNode = lastNode;
-        Node afterNode = lastNode;
-        boolean proceed = false;
-
-        if (!isEmpty()) {
-            if (index == 1) {
-                return true;
-            }
-
-            for (int i = 0; i < index - 1; i++) {
-                beforeNode = beforeNode.next;
-            }
-            for (int i = 0; i < index + 1; i++) {
-                afterNode = afterNode.next;
-            }
-
-            if (index == getSize()) {
-                lastNode = beforeNode;
-                proceed = true;
-            } else {
-                beforeNode.next.next = lastNode.next;
-                lastNode.next = beforeNode.next;
-                beforeNode.next = afterNode;
-
-                proceed = true;
-
-            }
-        }
-
-        return proceed;
-    }
-
-    public boolean contains(T entry) {
-        boolean found = false;
-        Node curNode = lastNode;
-        
-        if (!isEmpty()) {
-            for (int i = 0; !found && (i < getSize()); i++) {
-                curNode = curNode.next;
-                if (curNode.data.equals(entry)) {
-                    found = true;
-                }
-            }
-        }
-        return found;
     }
     
     private class Node {
