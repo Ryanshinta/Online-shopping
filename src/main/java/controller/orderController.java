@@ -33,7 +33,7 @@ public class orderController {
     announcementService<Announcement> annList = new announcementService<>();
     public static orderMapper<Order> orderQueue = new orderService<Order>();
     Order order = new Order();
-
+    BigDecimal deliveryFee = BigDecimal.valueOf(4);
     private voucherMapper voucherList = new VoucherService();
 
     public void orderMain() {
@@ -272,7 +272,7 @@ public class orderController {
         String x = null;
         String y = null;
         BigDecimal total = BigDecimal.valueOf(0);
-        BigDecimal deliveryFee = BigDecimal.valueOf(4);
+
         int selection2 = 0;
         int discount = 0;
         BigDecimal discount2 = BigDecimal.valueOf(0);
@@ -318,10 +318,10 @@ public class orderController {
                                 buffer = false;
                             } else {
                                 buffer = true;
-                                if (voucherList.getEntry(selection2-1).getDeducOrder() != 0) {
-                                    discount = voucherList.getEntry(selection2-1).getDeducOrder();
+                                if (voucherList.getEntry(selection2 - 1).getDeducOrder() != 0) {
+                                    discount = voucherList.getEntry(selection2 - 1).getDeducOrder();
                                 } else {
-                                    discount = voucherList.getEntry(selection2-1).getDeducDelivery();
+                                    discount = voucherList.getEntry(selection2 - 1).getDeducDelivery();
                                 }
                             }
                         } catch (Exception e) {
@@ -348,13 +348,12 @@ public class orderController {
 
                 do {
                     System.out.println("Select payment method :");
-                    System.out.println("1. Visa");
-                    System.out.println("2. MasterCard");
+                    System.out.println("1. MasterCard");
                     try {
                         selection = scanner.nextInt();
                         scanner.nextLine();
 
-                        if (selection == 1 || selection == 2) {
+                        if (selection == 1) {
                             buffer = true;
                         } else {
                             System.out.println(TEXT_RED + "\nInput Out of range !!!!\n" + TEXT_RESET);
@@ -368,14 +367,7 @@ public class orderController {
                     }
                 } while (buffer == false);
 
-                switch (selection) {
-                    case 1:
-                        //cannot work
-                        regex = "^4[0-9]{12}(?:[0-9]{3})?$";
-
-                    case 2:
-                        regex = "^5[1-5][0-9]{14}|^(222[1-9]|22[3-9]\\d|2[3-6]\\d{2}|27[0-1]\\d|2720)[0-9]{12}$";
-                }
+                regex = "^5[1-5][0-9]{14}|^(222[1-9]|22[3-9]\\d|2[3-6]\\d{2}|27[0-1]\\d|2720)[0-9]{12}$";
 
                 if (buffer == true) {
                     do {
@@ -389,7 +381,7 @@ public class orderController {
                             System.out.println("Visa should be start with 4 and a 13 or 16 digits length");
                             buffer = false;
                         } else if (m.matches() == false && selection == 2) {
-                            System.out.println("Mastercard should be start with 51 to 53 and a 16 digits length");
+                            System.out.println("Mastercard should be start with 51 to 55 and a 16 digits length");
                             buffer = false;
                         } else {
                             System.out.println("Confirm Payment ? (y/n) : ");
@@ -398,11 +390,12 @@ public class orderController {
                             if ("N".equals(x.toUpperCase())) {
                                 buffer = true;
                             } else if ("Y".equals(x.toUpperCase())) {
-                                for (int i = 0; i < tempOrder.size(); i++) {
-                                    order.setOrderDetail(tempOrder);
-                                }
+
+                                order.setOrderDetail(tempOrder);
+                                order.setPaymentTotal(total);
                                 orderQueue.enqueue(order);
                                 System.out.println(TEXT_GREEN + "\nOrder Placed successfully  !!" + TEXT_RESET);
+                                generateReceipt(discount, str);
                                 tempOrder.clear();
                                 buffer = true;
                             } else {
@@ -417,6 +410,39 @@ public class orderController {
             } while (buffer == false);
 
         }
+
+    }
+
+    public void generateReceipt(int discount, String str) {
+        int j = 1;
+        System.out.println(
+                "\n\n----------------------------------------------------------------------------------------------");
+        System.out.println(
+                "|                                        Receipt                                             |");
+        System.out.println(
+                "|--------------------------------------------------------------------------------------------|");
+        System.out.println(
+                "| No | Item ID | Item Name    |     Description          | Price/unit | Quantity | Subtotal  |");
+        System.out.println(
+                "|--------------------------------------------------------------------------------------------|");
+        for (int i = 0; i < order.getOrderDetail().size(); i++) {
+            System.out.println("| " + j++ + ". | " + order.getOrderDetail().get(i).toString());
+        }
+        System.out.println(
+                "|--------------------------------------------------------------------------------------------|");
+        System.out.println(
+                        "                                                                      Subtotal   |  " + subtotal + "  ");
+        System.out.println(
+                        "                                                                  Delivery Fee   |  " + deliveryFee + "  ");
+        
+        System.out.println(
+                        "                                                                      Discount   |  (-)" + discount + "  ");
+        
+        System.out.println(
+                        "                                                                         Total   |  " + order.getPaymentTotal() + "  ");
+        System.out.println(
+                        "                                                                 CreditCard No   |  " + str + "  ");
+
 
     }
 
@@ -460,6 +486,7 @@ public class orderController {
                 "| No | Item ID | Item Name    |     Description          | Price/unit | Quantity | Subtotal  |");
         System.out.println(
                 "|--------------------------------------------------------------------------------------------|");
+
     }
 
     public void hardCodeVoucher() {

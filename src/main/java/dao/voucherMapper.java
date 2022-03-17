@@ -20,6 +20,12 @@ public interface voucherMapper {
     Voucher validVoucher(Date date);
 
     String displayAllVoucher();
+    
+    int totalEntry();
+    
+    Voucher getEntry(int index);
+
+    
 
 
 }

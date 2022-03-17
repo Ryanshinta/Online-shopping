@@ -4,11 +4,15 @@ public class Voucher {
     private String name;
     private String expired;
     private String desc;
+    private int deducOrder;
+    private int deducDelivery;
 
-    public Voucher(String name, String expired, String desc) {
+    public Voucher(String name, String expired, String desc, int deducOrder, int deducDelivery) {
         this.name = name;
         this.expired = expired;
         this.desc = desc;
+        this.deducOrder = deducOrder;
+        this.deducDelivery = deducDelivery;
     }
 
     public String getName() {
@@ -35,6 +39,24 @@ public class Voucher {
         this.desc = desc;
     }
 
+    public int getDeducOrder() {
+        return deducOrder;
+    }
+
+    public void setDeducOrder(int deducOrder) {
+        this.deducOrder = deducOrder;
+    }
+
+    public int getDeducDelivery() {
+        return deducDelivery;
+    }
+
+    public void setDeducDelivery(int deducDelivery) {
+        this.deducDelivery = deducDelivery;
+    }
+
+    
+    
     @Override
     public String toString() {
         return "Voucher    : " + name + "<br>Expired    : " + expired + "<br>Description: " + desc;

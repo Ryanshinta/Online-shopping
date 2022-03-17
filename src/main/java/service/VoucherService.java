@@ -67,4 +67,13 @@ public class VoucherService implements voucherMapper {
         }
         return null;
     }
+
+    public int totalEntry() {
+        return VoucherArray.size();
+    }
+
+    public Voucher getEntry(int index) {
+        return VoucherArray.get(index);
+    }
+    
 }
