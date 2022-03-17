@@ -495,6 +495,7 @@ public class orderController {
         voucherList.newVoucher(new Voucher("Free shipping", "15.03.2022", "Enjoy RM4 off on shipping fee.", 0, 4));
         voucherList.newVoucher(new Voucher("Free shipping", "16.03.2022", "Enjoy RM4 off on shipping fee.", 0, 4));
         voucherList.newVoucher(new Voucher("Free shipping", "31.05.2022", "Enjoy RM4 off on shipping fee.", 0, 4));
+        
 
     }
 

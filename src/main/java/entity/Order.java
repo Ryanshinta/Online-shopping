@@ -14,7 +14,6 @@ import java.util.ArrayList;
  */
 public class Order {
     private String orderID;
-    private User user;
     private ArrayList<OrderDetail> orderDetail;
     private BigDecimal paymentTotal;
     private static int increment;
@@ -22,8 +21,7 @@ public class Order {
     public Order() {
     }
 
-    public Order(User user, ArrayList<OrderDetail> orderDetail) {
-        this.user = user;
+    public Order(ArrayList<OrderDetail> orderDetail) {
         this.orderDetail = orderDetail;
         generateOrderID();
         this.paymentTotal = calculateTotal();
@@ -50,14 +48,6 @@ public class Order {
         this.orderID = orderID;
     }
 
-    public User getUser() {
-        return user;
-    }
-
-    public void setUser(User user) {
-        this.user = user;
-    }
-
     public ArrayList<OrderDetail> getOrderDetail() {
         return orderDetail;
     }
@@ -81,5 +71,11 @@ public class Order {
     public static void setIncrement(int increment) {
         Order.increment = increment;
     }
+
+    @Override
+    public String toString() {
+        return "Order{" + "orderID=" + orderID + ", orderDetail=" + orderDetail + ", paymentTotal=" + paymentTotal + '}';
+    }
+    
 
 }
