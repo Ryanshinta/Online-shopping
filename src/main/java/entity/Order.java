@@ -24,21 +24,20 @@ public class Order {
     public Order(ArrayList<OrderDetail> orderDetail) {
         this.orderDetail = orderDetail;
         generateOrderID();
-        this.paymentTotal = calculateTotal();
     }
 
     public void generateOrderID() {
         ++increment;
         this.orderID = "ORD" + String.format("%04d", increment);
     }
-
-    public BigDecimal calculateTotal() {
-        BigDecimal ttl = null;
-        for (int i = 0; i < this.orderDetail.size(); i++) {
-            ttl = ttl.add(this.orderDetail.get(i).getSubtotal());
-        }
-        return ttl;
-    }
+//
+//    public BigDecimal calculateTotal() {
+//        BigDecimal ttl = null;
+//        for (int i = 0; i < this.orderDetail.size(); i++) {
+//            ttl = ttl.add(this.orderDetail.get(i).getSubtotal());
+//        }
+//        return ttl;
+//    }
 
     public String getOrderID() {
         return orderID;
