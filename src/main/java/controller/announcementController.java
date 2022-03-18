@@ -24,10 +24,6 @@ public class announcementController {
         }
     }
 
-    public void checkInputAnnContent() {
-
-    }
-
     public void menuAnn() {
         // hardCode();
         int selection = 0;
@@ -36,9 +32,10 @@ public class announcementController {
             System.out.println("|        Menu        |");
             System.out.println("|~~~~~~~~~~~~~~~~~~~~|");
             System.out.println("|    1. Create       |");
-            System.out.println("|    2. Delete       |");
-            System.out.println("|    3. Display All  |");
-            System.out.println("|    4. Exit         |");
+            System.out.println("|    2. Update       |");
+            System.out.println("|    3. Delete       |");
+            System.out.println("|    4. Display All  |");
+            System.out.println("|    5. Exit         |");
             System.out.println("|~~~~~~~~~~~~~~~~~~~~|");
             System.out.print("Please enter option to proceed: ");
             characterInput();
@@ -49,12 +46,15 @@ public class announcementController {
                     createAnn();
                     break;
                 case 2:
-                    deleteAnn();
+                    updateAnn();
                     break;
                 case 3:
-                    displayAnn();
+                    deleteAnn();
                     break;
                 case 4:
+                    displayAnn();
+                    break;
+                case 5:
                     break;
                 default:
                     System.out.println(TEXT_RED + "Error: Option Not Found, Please Try Again." + TEXT_RESET);
@@ -116,7 +116,39 @@ public class announcementController {
     }
 
     public void updateAnn() {
+        displayAnn();
 
+        Iterator iterator = annList.getIterator();
+        int searchID;
+        System.out.print("\nEnter the Announcement ID that you want to edit: ");
+        searchID = input.nextInt();
+
+        while (iterator.hasNext()) {
+            Announcement ann = (Announcement) iterator.next();
+
+            if (ann.getAnnID().equals(searchID)) {
+                System.out.println(ann.toString());
+                System.out.println();
+                System.out.println("1. Contents");
+                System.out.print("Which one you want to edit:");
+
+                int userInput = input.nextInt();
+
+                Announcement tempAnn = ann;
+                switch (userInput) {
+                    case 1:
+                        System.out.print("Enter new content: ");
+                        String editContent = input.next();
+                        tempAnn.setAnnContents(editContent);
+                        System.out.println("Successfully edited");
+
+                        break;
+                    default:
+                        System.out.println("Invalid input!");
+                        return;
+                }
+            }
+        }
     }
 
     public void deleteAnn() {
@@ -146,12 +178,12 @@ public class announcementController {
                     pressAnyKeyToContinue();
                 } else if (confirmation == 'n' || confirmation == 'N') {
                     System.out.println(TEXT_GREEN + "Do nothing\n" + TEXT_RESET);
+                    pressAnyKeyToContinue();
+
                 }
             }
 
         }
-
-        pressAnyKeyToContinue();
 
     }
 
@@ -169,7 +201,6 @@ public class announcementController {
             hardCode();
             System.out.println(TEXT_GREEN + "Added default announcement succesfully\n" + TEXT_RESET);
         }
-        pressAnyKeyToContinue();
     }
 
     private static void pressAnyKeyToContinue() {
