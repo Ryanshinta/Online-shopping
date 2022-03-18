@@ -14,11 +14,13 @@ import java.util.Iterator;
 public class testAnnouncement {
 
     static announcementService<Announcement> annList = new announcementService<>();
-    private Announcement a1;
+    private Announcement a1, a2;
 
     @Before
     public void setup() {
         a1 = new Announcement(2222, "test case message", "2022/03/22 16:37:15");
+        a2 = new Announcement(3333, "test case message", "2022/03/22 16:37:15");
+
         annList.add(a1);
     }
 
@@ -33,20 +35,27 @@ public class testAnnouncement {
     @Test
     public void testAddAnnouncement() {
 
-        boolean expResult = true;
-        annList.add(a1);
-        boolean result = false;
+        int befSize = annList.size();
+        annList.add(a2);
 
-        Iterator iterator = annList.getIterator();
-        while (iterator.hasNext()) {
-            Announcement ann = (Announcement) iterator.next();
-            while (ann.getAnnID().equals(2222)) {
-                result = true;
-                break;
-            }
-        }
+        int aftSize = annList.size();
 
-        assertEquals(expResult, result);
+        assertEquals(befSize + 1, aftSize);
+
+        // boolean expResult = true;
+        // annList.add(a1);
+        // boolean result = false;
+
+        // Iterator iterator = annList.getIterator();
+        // while (iterator.hasNext()) {
+        // Announcement ann = (Announcement) iterator.next();
+        // while (ann.getAnnID().equals(2222)) {
+        // result = true;
+        // break;
+        // }
+        // }
+
+        // assertEquals(expResult, result);
 
     }
 
